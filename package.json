@@ -1,5 +1,5 @@
 {
-  "name": "unict-telegram-channels-groups",
+  "name": "unict-telegram-hub",
   "version": "0.1.0",
   "private": true,
   "scripts": {

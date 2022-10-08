@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+
+import Hub from './[submodule]';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -12,17 +12,17 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>UNICT Telegram Channels & Groups</title>
-        <meta name='description' content='UNICT Telegram Channels & Groups' />
+        <title>UNICT Telegram Hub</title>
+        <meta name='description' content='UNICT Telegram Hub' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className={styles.main}></main>
-
-      <footer className={styles.footer}></footer>
+      <Hub />
     </>
   );
 };
 
 export default Home;
+
+export type Routes = 'channels' | 'groups' | 'bachelor' | 'master' | 'bots';
