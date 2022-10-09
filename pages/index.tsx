@@ -1,6 +1,5 @@
+import { colors, createTheme } from '@mui/material';
 import type { NextPage } from 'next';
-import Head from 'next/head';
-
 import Hub from './[submodule]';
 
 import '@fontsource/roboto/300.css';
@@ -9,20 +8,47 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 const Home: NextPage = () => {
-  return (
-    <>
-      <Head>
-        <title>UNICT Telegram Hub</title>
-        <meta name='description' content='UNICT Telegram Hub' />
-        <meta name='viewport' content='initial-scale=1, width=device-width' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-
-      <Hub />
-    </>
-  );
+  return <Hub />;
 };
 
 export default Home;
 
-export type Routes = 'channels' | 'groups' | 'bachelor' | 'master' | 'bots';
+export const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: colors.yellow[900]
+    },
+    secondary: {
+      main: colors.indigo[900]
+    }
+  }
+});
+
+interface Route {
+  label: string;
+  href: string;
+}
+
+export const routes: readonly Route[] = [
+  {
+    label: 'Home',
+    href: '/'
+  },
+  {
+    label: 'UNICT Channels',
+    href: 'channels'
+  },
+  {
+    label: 'UNICT Bots',
+    href: 'bots'
+  },
+  {
+    label: "DMI Bachelor's Degree Groups",
+    href: 'bachelor'
+  },
+  {
+    label: "DMI Master's Degree Groups",
+    href: 'master'
+  }
+] as const;
