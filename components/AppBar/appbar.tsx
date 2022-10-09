@@ -1,12 +1,15 @@
 import { AppBar, Toolbar } from '@mui/material';
 import type { NextPage } from 'next';
 import useIsMobile from '../../hooks/useIsMobile';
+import { FilterSetter } from '../../pages/[submodule]';
 import DesktopNavigation from '../DesktopNavigation/desktopNavigation';
 
-const AppBarWrapper: NextPage = () => {
+const AppBarWrapper: NextPage<FilterSetter> = ({ setFilter }) => {
   return (
     <AppBar color='secondary' enableColorOnDark>
-      <Toolbar>{useIsMobile() ? <span>MOBILE</span> : <DesktopNavigation />}</Toolbar>
+      <Toolbar>
+        {useIsMobile() ? <span>MOBILE</span> : <DesktopNavigation setFilter={setFilter} />}
+      </Toolbar>
     </AppBar>
   );
 };

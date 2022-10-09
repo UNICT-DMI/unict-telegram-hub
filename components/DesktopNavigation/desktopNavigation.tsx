@@ -2,22 +2,22 @@ import { Box, Button } from '@mui/material';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { routes } from '../../pages';
+import { FilterSetter } from '../../pages/[submodule]';
+import Filter from '../Filter/filter';
 
-const DesktopNavigation: NextPage = () => {
+const DesktopNavigation: NextPage<FilterSetter> = ({ setFilter }) => {
   return (
-    <Box>
-      {routes.map((route, index) => (
-        <Button key={index}>
-          <Link href={route.href}>{route.label}</Link>
-        </Button>
-      ))}
-    </Box>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        {routes.map((route, index) => (
+          <Button key={index}>
+            <Link href={route.href}>{route.label}</Link>
+          </Button>
+        ))}
+      </Box>
+      <Filter setFilter={setFilter} />
+    </>
   );
 };
 
 export default DesktopNavigation;
-
-interface LinkTabProps {
-  label: string;
-  href: string;
-}
