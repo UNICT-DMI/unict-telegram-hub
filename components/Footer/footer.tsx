@@ -1,15 +1,30 @@
+import { styled } from '@mui/material';
 import type { NextPage } from 'next';
 
-import styles from './footer.module.css';
+const StyledFooter = styled('footer')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '8px 0',
+  borderTop: `1px solid ${theme.palette.secondary.dark}`
+}));
+
+const StyledSpan = styled('span')(({ theme }) => ({
+  color: theme.palette.secondary.main
+}));
+
+const StyledLink = styled('a')(({ theme }) => ({
+  color: theme.palette.secondary.light
+}));
 
 const Footer: NextPage = () => {
   return (
-    <footer className={styles.footer}>
-      <span>Coded by</span>
-      <a href='https://github.com/Lorenzo-Pappalardo'>Lorenzo Pappalardo</a>
-      <a href='https://github.com/Helias'>Stefano Borzì</a>
-      <a href='https://github.com/Gigi-G'>Luigi Seminara</a>
-    </footer>
+    <StyledFooter>
+      <StyledSpan>Coded by</StyledSpan>
+      <StyledLink href='https://github.com/Lorenzo-Pappalardo'>Lorenzo Pappalardo</StyledLink>
+      <StyledLink href='https://github.com/Helias'>Stefano Borzì</StyledLink>
+      <StyledLink href='https://github.com/Gigi-G'>Luigi Seminara</StyledLink>
+    </StyledFooter>
   );
 };
 
