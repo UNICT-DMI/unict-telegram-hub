@@ -6,7 +6,7 @@ import DesktopNavigation from '../DesktopNavigation/desktopNavigation';
 
 const AppBarWrapper: NextPage<FilterSetter> = ({ setFilter }) => {
   return (
-    <AppBar color='secondary' enableColorOnDark>
+    <AppBar color='secondary' enableColorOnDark position='sticky'>
       <Toolbar>
         {useIsMobile() ? <span>MOBILE</span> : <DesktopNavigation setFilter={setFilter} />}
       </Toolbar>
