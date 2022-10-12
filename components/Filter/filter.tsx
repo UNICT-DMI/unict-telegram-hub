@@ -18,7 +18,7 @@ const Filter: NextPage<FilterSetter> = ({ setFilter }) => {
           )
         }}
         onChange={event => {
-          setFilter(event.target.value.toLowerCase);
+          setFilter(event.target.value.toLowerCase());
         }}
       />
     </Box>
