@@ -2,7 +2,7 @@ import { AppBar, Toolbar } from '@mui/material';
 import type { NextPage } from 'next';
 import useIsMobile from '../../hooks/useIsMobile';
 import { FilterSetter } from '../../pages/[submodule]';
-import DesktopNavigation from '../DesktopNavigation/desktopNavigation';
+import DesktopNavigation from '../DesktopNavigation/DesktopNavigation';
 
 const AppBarWrapper: NextPage<FilterSetter> = ({ setFilter }) => {
   return (

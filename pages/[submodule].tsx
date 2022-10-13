@@ -4,9 +4,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { theme } from '.';
-import AppBarWrapper from '../components/AppBar/appbar';
+import AppBarWrapper from '../components/AppBar/Appbar';
 import Channels from '../components/Channels/Channels';
-import Footer from '../components/Footer/footer';
+import Footer from '../components/Footer/Footer';
 import styles from '../styles/Hub.module.css';
 
 const Hub: NextPage = () => {

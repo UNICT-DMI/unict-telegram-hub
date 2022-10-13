@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { routes } from '../../pages';
 import { FilterSetter } from '../../pages/[submodule]';
-import Filter from '../Filter/filter';
+import Filter from '../Filter/Filter';
 
 const DesktopNavigation: NextPage<FilterSetter> = ({ setFilter }) => {
   return (
