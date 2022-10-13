@@ -8,9 +8,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: var(--padding-vertical) 0;
 }
 
 @media (max-width: 600px) {
