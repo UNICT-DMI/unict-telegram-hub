@@ -1,10 +1,9 @@
 import { AppBar, Toolbar } from '@mui/material';
-import type { NextPage } from 'next';
 import useIsMobile from '../../hooks/useIsMobile';
-import { FilterSetter } from '../../pages/[submodule]';
+import { FilterSetter } from '../../models/Filter';
 import DesktopNavigation from '../DesktopNavigation/DesktopNavigation';
 
-const AppBarWrapper: NextPage<FilterSetter> = ({ setFilter }) => {
+const AppBarWrapper = ({ setFilter }: Props) => {
   return (
     <AppBar color='secondary' enableColorOnDark position='sticky'>
       <Toolbar>
@@ -15,3 +14,7 @@ const AppBarWrapper: NextPage<FilterSetter> = ({ setFilter }) => {
 };
 
 export default AppBarWrapper;
+
+interface Props {
+  setFilter: FilterSetter;
+}

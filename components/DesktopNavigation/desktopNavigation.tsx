@@ -1,11 +1,10 @@
 import { Box, Button } from '@mui/material';
-import { NextPage } from 'next';
 import Link from 'next/link';
+import { FilterSetter } from '../../models/Filter';
 import { routes } from '../../pages';
-import { FilterSetter } from '../../pages/[submodule]';
 import Filter from '../Filter/Filter';
 
-const DesktopNavigation: NextPage<FilterSetter> = ({ setFilter }) => {
+const DesktopNavigation = ({ setFilter }: Props) => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -21,3 +20,7 @@ const DesktopNavigation: NextPage<FilterSetter> = ({ setFilter }) => {
 };
 
 export default DesktopNavigation;
+
+interface Props {
+  setFilter: FilterSetter;
+}

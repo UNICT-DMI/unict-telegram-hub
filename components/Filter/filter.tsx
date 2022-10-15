@@ -1,9 +1,8 @@
 import { Search } from '@mui/icons-material';
 import { Box, InputAdornment, TextField } from '@mui/material';
-import { NextPage } from 'next';
-import { FilterSetter } from '../../pages/[submodule]';
+import { FilterSetter } from '../../models/Filter';
 
-const Filter: NextPage<FilterSetter> = ({ setFilter }) => {
+const Filter = ({ setFilter }: Props): JSX.Element => {
   return (
     <Box>
       <TextField
@@ -26,3 +25,7 @@ const Filter: NextPage<FilterSetter> = ({ setFilter }) => {
 };
 
 export default Filter;
+
+interface Props {
+  setFilter: FilterSetter;
+}

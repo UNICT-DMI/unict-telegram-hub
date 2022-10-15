@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import type { NextPage } from 'next';
 
 const StyledFooter = styled('footer')(({ theme }) => ({
   display: 'flex',
@@ -17,7 +16,7 @@ const StyledLink = styled('a')(({ theme }) => ({
   color: theme.palette.secondary.light
 }));
 
-const Footer: NextPage = () => {
+const Footer = (): JSX.Element => {
   return (
     <StyledFooter>
       <StyledSpan>Coded by</StyledSpan>

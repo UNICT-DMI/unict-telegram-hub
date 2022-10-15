@@ -1,17 +1,23 @@
-import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { Channel } from '../../pages/api/channels';
+import { EntityWithPosition, Entity } from '../../models/api/Entity';
 import GenericCard from '../Card/Card';
 
-const Channels: NextPage<Props> = ({ filter }) => {
+const Channels = ({ filter }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [channels, setChannels] = useState<Array<Channel> | undefined>(undefined);
+  const [channels, setChannels] = useState<Array<EntityWithPosition> | undefined>(undefined);
 
   useEffect(() => {
     fetch('api/channels')
       .then(res => res.json())
-      .then(data => {
-        setChannels(data);
+      .then((data: Array<Entity>) => {
+        setChannels(
+          data.map((entity, index) => {
+            const entityWithPosition = entity as EntityWithPosition;
+            entityWithPosition.position = index + 1;
+
+            return entityWithPosition;
+          })
+        );
         setLoading(false);
       });
   }, []);
@@ -23,7 +29,9 @@ const Channels: NextPage<Props> = ({ filter }) => {
       ) : channels ? (
         <div>
           {channels.map(channel =>
-            !filter || channel.title.search(filter) ? <GenericCard entity={channel} /> : undefined
+            !filter || channel.title.search(filter) ? (
+              <GenericCard entity={channel} key={channel.title} />
+            ) : undefined
           )}
         </div>
       ) : (

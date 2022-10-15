@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { Channel } from '../../models/api/Entity';
 
 async function getData(channelName: string): Promise<Channel> {
   const API = process.env.API + 'api.telegram.php?';
@@ -90,12 +91,4 @@ export default function handler(
       console.error(err);
       res.status(500).send();
     });
-}
-
-export interface Channel {
-  title: string;
-  link: string;
-  description: string;
-  pictureURL: string;
-  subscribers: number;
 }

@@ -1,6 +1,7 @@
 import { colors, createTheme } from '@mui/material';
 import type { NextPage } from 'next';
 import Hub from './[submodule]';
+import Route from '../models/Route';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -24,11 +25,6 @@ export const theme = createTheme({
     }
   }
 });
-
-interface Route {
-  label: string;
-  href: string;
-}
 
 export const routes: readonly Route[] = [
   {

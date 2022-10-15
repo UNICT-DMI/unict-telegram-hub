@@ -48,7 +48,3 @@ const Hub: NextPage = () => {
 };
 
 export default Hub;
-
-export type FilterSetter = {
-  setFilter: ReturnType<typeof useState<string>>[1];
-};
