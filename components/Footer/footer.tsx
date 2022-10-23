@@ -1,19 +1,19 @@
-import { styled } from '@mui/material';
+import styled from '@mui/material/styles/styled';
 
 const StyledFooter = styled('footer')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '8px 0',
-  borderTop: `1px solid ${theme.palette.secondary.dark}`
+  borderTop: `1px solid ${theme.palette.secondary.main}`
 }));
 
 const StyledSpan = styled('span')(({ theme }) => ({
-  color: theme.palette.secondary.main
+  color: theme.palette.secondary.light
 }));
 
 const StyledLink = styled('a')(({ theme }) => ({
-  color: theme.palette.secondary.light
+  color: theme.palette.primary.main
 }));
 
 const Footer = (): JSX.Element => {

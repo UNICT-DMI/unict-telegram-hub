@@ -1,4 +1,5 @@
-import { AppBar, Toolbar } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import useIsMobile from '../../hooks/useIsMobile';
 import { FilterSetter } from '../../models/Filter';
 import DesktopNavigation from '../DesktopNavigation/DesktopNavigation';
@@ -7,7 +8,11 @@ const AppBarWrapper = ({ setFilter }: Props) => {
   return (
     <AppBar color='secondary' enableColorOnDark position='sticky'>
       <Toolbar>
-        {useIsMobile() ? <span>MOBILE</span> : <DesktopNavigation setFilter={setFilter} />}
+        {useIsMobile() ? (
+          <span>UNICT Telegram Hub</span>
+        ) : (
+          <DesktopNavigation setFilter={setFilter} />
+        )}
       </Toolbar>
     </AppBar>
   );

@@ -1,4 +1,5 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';

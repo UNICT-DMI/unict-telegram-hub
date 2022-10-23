@@ -1,5 +1,7 @@
-import { Search } from '@mui/icons-material';
-import { Box, InputAdornment, TextField } from '@mui/material';
+import Search from '@mui/icons-material/Search';
+import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
 import { FilterSetter } from '../../models/Filter';
 
 const Filter = ({ setFilter }: Props): JSX.Element => {

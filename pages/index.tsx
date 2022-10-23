@@ -1,4 +1,5 @@
-import { colors, createTheme } from '@mui/material';
+import { colors } from '@mui/material';
+import createTheme from '@mui/material/styles/createTheme';
 import type { NextPage } from 'next';
 import Hub from './[submodule]';
 import Route from '../models/Route';
@@ -18,7 +19,7 @@ export const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: colors.yellow[900]
+      main: colors.yellow[700]
     },
     secondary: {
       main: colors.indigo[900]
