@@ -5,23 +5,14 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { theme } from '.';
 import AppBarWrapper from '../components/AppBar/Appbar';
-import Channels from '../components/Channels/Channels';
 import Footer from '../components/Footer/Footer';
+import Grid from '../components/Grid/Grid';
 import styles from '../styles/Hub.module.css';
 
 const Hub: NextPage = () => {
   const router = useRouter();
   const { submodule } = router.query;
   const [filter, setFilter] = useState<string | undefined>(undefined);
-
-  function getSubmodule() {
-    switch (submodule) {
-      case 'channels':
-        return <Channels filter={filter} />;
-      default:
-        return undefined;
-    }
-  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -38,7 +29,7 @@ const Hub: NextPage = () => {
         <main className={styles.main}>
           <AppBarWrapper setFilter={setFilter} />
 
-          {getSubmodule()}
+          {submodule ? <Grid submodule={submodule as string} filter={filter} /> : undefined}
         </main>
 
         <Footer />

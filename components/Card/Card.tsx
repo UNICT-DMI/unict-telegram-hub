@@ -3,39 +3,36 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/system/Box';
+import useIsMobile from '../../hooks/useIsMobile';
 import { EntityWithPosition } from '../../models/api/Entity';
 
 function GenericCard({ entity }: Props) {
-  const cardMaxWidth = 400;
-  const cardMaxHeight = 175;
+  const isMobile = useIsMobile();
+
+  const cardWidth = isMobile ? 350 : 450;
+  const pictureSideSize = isMobile ? 100 : 150;
 
   return (
     <Card
       sx={{
         display: 'flex',
         position: 'relative',
-        maxWidth: cardMaxWidth + 'px',
-        maxHeight: cardMaxHeight + 'px'
+        width: cardWidth + 'px',
+        padding: '8px'
       }}>
-      <Box>
-        <CardMedia
-          component='img'
-          src={entity.pictureURL}
-          sx={{ maxWidth: cardMaxHeight + 'px' }}
-        />
-      </Box>
+      <CardMedia
+        component='img'
+        src={entity.pictureURL}
+        sx={{ width: pictureSideSize + 'px', alignSelf: 'center' }}
+      />
       <CardContent
         sx={{
           display: 'flex',
-          flexDirection: 'column',
-          width: cardMaxWidth - cardMaxHeight + 'px'
+          flexDirection: 'column'
         }}>
-        <Box sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          <Link href={entity.link} target='_blank' rel='noopener' variant='h5' underline='hover'>
-            {entity.title}
-          </Link>
-        </Box>
+        <Link href={entity.link} target='_blank' rel='noopener' variant='h5' underline='hover'>
+          {entity.title}
+        </Link>
         {entity.description ? (
           <Typography variant='body2' color='text.secondary'>
             {entity.description}

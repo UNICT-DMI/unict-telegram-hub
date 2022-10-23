@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { EntityWithPosition, Entity } from '../../models/api/Entity';
 import GenericCard from '../Card/Card';
+import styles from '../../styles/Grid.module.css';
 
-const Channels = ({ filter }: Props) => {
+const Grid = ({ submodule, filter }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [channels, setChannels] = useState<Array<EntityWithPosition> | undefined>(undefined);
+  const [entities, setEntities] = useState<Array<EntityWithPosition> | undefined>(undefined);
 
   useEffect(() => {
     fetch('api/channels')
       .then(res => res.json())
       .then((data: Array<Entity>) => {
-        setChannels(
+        setEntities(
           data.map((entity, index) => {
             const entityWithPosition = entity as EntityWithPosition;
             entityWithPosition.position = index + 1;
@@ -26,10 +27,10 @@ const Channels = ({ filter }: Props) => {
     <>
       {loading ? (
         <h1>Loading...</h1>
-      ) : channels ? (
-        <div>
-          {channels.map(channel =>
-            !filter || channel.title.search(filter) ? (
+      ) : entities ? (
+        <div className={styles.flexGrid}>
+          {entities.map(channel =>
+            !filter || channel.title.toLowerCase().search(filter) > -1 ? (
               <GenericCard entity={channel} key={channel.title} />
             ) : undefined
           )}
@@ -41,8 +42,9 @@ const Channels = ({ filter }: Props) => {
   );
 };
 
-export default Channels;
+export default Grid;
 
 interface Props {
+  submodule: string;
   filter?: string;
 }

@@ -1,15 +1,8 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
-  --padding-horizontal: 8px;
-  --padding-vertical: 8px;
-  --margin-horizontal: var(--padding-horizontal);
-  --margin-vertical: var(--padding-vertical);
-  --border-color: #606060;
-  --color-link: #f0d018;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
