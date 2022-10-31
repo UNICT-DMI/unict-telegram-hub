@@ -23,6 +23,9 @@ export const theme = createTheme({
     },
     secondary: {
       main: colors.indigo[900]
+    },
+    text: {
+      secondary: colors.yellow[900]
     }
   }
 });
