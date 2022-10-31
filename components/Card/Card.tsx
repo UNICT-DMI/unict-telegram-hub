@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -16,30 +17,44 @@ function GenericCard({ entity }: Props) {
     <Card
       sx={{
         display: 'flex',
-        position: 'relative',
+        flexDirection: 'column',
+        justifyContent: 'center',
         width: cardWidth + 'px',
-        padding: '8px'
+        padding: '8px 12px'
       }}>
-      <CardMedia
-        component='img'
-        src={entity.pictureURL}
-        sx={{ width: pictureSideSize + 'px', alignSelf: 'center' }}
-      />
-      <CardContent
+      <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column'
+          position: 'relative',
+          display: 'flex'
         }}>
-        <Link href={entity.link} target='_blank' rel='noopener' variant='h5' underline='hover'>
-          {entity.title}
-        </Link>
-        {entity.description ? (
-          <Typography variant='body2' color='text.secondary'>
-            {entity.description}
-          </Typography>
-        ) : undefined}
-      </CardContent>
-      <span style={{ position: 'absolute', top: '0', right: '0' }}>{entity.position}</span>
+        <CardMedia
+          component='img'
+          src={entity.pictureURL}
+          sx={{ width: pictureSideSize + 'px', alignSelf: 'center' }}
+        />
+        <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            padding: '8px'
+          }}>
+          <Link href={entity.link} target='_blank' rel='noopener' variant='h5' underline='hover'>
+            {entity.title}
+          </Link>
+          {entity.description ? (
+            <Typography variant='body2' color='text.primary'>
+              {entity.description}
+            </Typography>
+          ) : undefined}
+          {entity.subscribers ? (
+            <Typography variant='body2' color='text.secondary'>
+              Subscribers: {entity.subscribers}
+            </Typography>
+          ) : undefined}
+        </CardContent>
+        <span style={{ position: 'absolute', top: '0', right: '0' }}>{entity.position}</span>
+      </Box>
     </Card>
   );
 }
