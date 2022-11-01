@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Channel } from '../../models/api/Entity';
 
 async function getData(channelName: string): Promise<Channel> {
-  const API = process.env.API + 'api.telegram.php?';
+  const API = `${process.env.API}/api.telegram.php?`;
   const promises: Array<Promise<void>> = [];
   const newChannel: Channel = {} as Channel;
 
@@ -78,10 +78,7 @@ function compareSubscribers(a: Channel, b: Channel): number {
   return 0;
 }
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Array<Channel> | void>
-) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<Array<Channel> | void>) {
   getChannels()
     .then(channels => {
       channels.sort(compareSubscribers);
