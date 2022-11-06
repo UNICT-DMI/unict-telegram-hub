@@ -86,6 +86,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Array<
     })
     .catch(err => {
       console.error(err);
-      res.status(500).send();
+      res.status(500).send([]);
     });
 }
