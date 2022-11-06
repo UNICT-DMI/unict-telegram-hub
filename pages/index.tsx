@@ -30,7 +30,7 @@ export const theme = createTheme({
   }
 });
 
-export const routes: readonly Route[] = [
+export const routes: Route[] = [
   {
     label: 'Home',
     href: '/'
@@ -45,10 +45,49 @@ export const routes: readonly Route[] = [
   },
   {
     label: "DMI Bachelor's Degree Groups",
-    href: 'bachelor'
+    href: 'bachelor',
+    subRoutes: [
+      {
+        label: '1° anno',
+        href: '',
+        queryParameters: {
+          year: '1'
+        }
+      },
+      {
+        label: '2° anno',
+        href: '',
+        queryParameters: {
+          year: '2'
+        }
+      },
+      {
+        label: '3° anno',
+        href: '',
+        queryParameters: {
+          year: '3'
+        }
+      }
+    ]
   },
   {
     label: "DMI Master's Degree Groups",
-    href: 'master'
+    href: 'master',
+    subRoutes: [
+      {
+        label: '1° anno',
+        href: '',
+        queryParameters: {
+          year: '1'
+        }
+      },
+      {
+        label: '2° anno',
+        href: '',
+        queryParameters: {
+          year: '2'
+        }
+      }
+    ]
   }
-] as const;
+];
