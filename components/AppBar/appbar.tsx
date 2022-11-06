@@ -2,7 +2,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import useIsMobile from '../../hooks/useIsMobile';
 import { FilterSetter } from '../../models/Filter';
-import DesktopNavigation from '../DesktopNavigation/DesktopNavigation';
+import DesktopNavigation from '../DesktopNavigation/desktopNavigation';
 
 const AppBarWrapper = ({ setFilter }: Props) => {
   return (
