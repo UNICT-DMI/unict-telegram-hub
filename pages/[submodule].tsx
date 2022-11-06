@@ -12,7 +12,7 @@ import styles from '../styles/Hub.module.css';
 
 const Hub: NextPage = () => {
   const router = useRouter();
-  const { submodule } = router.query;
+  const submodule = router.asPath;
   const [filter, setFilter] = useState<string | undefined>(undefined);
 
   return (
@@ -30,7 +30,7 @@ const Hub: NextPage = () => {
         <main className={styles.main}>
           <AppBarWrapper setFilter={setFilter} />
 
-          {submodule ? <Grid submodule={submodule as string} filter={filter} /> : undefined}
+          {submodule !== '/' ? <Grid submodule={submodule} filter={filter} /> : undefined}
         </main>
 
         <Footer />

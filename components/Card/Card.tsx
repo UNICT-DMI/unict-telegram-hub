@@ -5,13 +5,34 @@ import CardMedia from '@mui/material/CardMedia';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import useIsMobile from '../../hooks/useIsMobile';
-import { EntityWithPosition } from '../../models/api/Entity';
+import { Channel, Entity, EntityWithPosition, Group } from '../../models/api/Entity';
+
+function isChannel(entity: Entity): entity is Channel {
+  return (entity as Channel).subscribers != undefined;
+}
+
+function isGroup(entity: Entity): entity is Group {
+  return (entity as Group).members != undefined;
+}
+
+function getFans(entity: Entity): string {
+  if (isChannel(entity) && entity.subscribers >= 0) {
+    return `Subscribers: ${entity.subscribers}`;
+  }
+  if (isGroup(entity) && entity.members >= 0) {
+    return `Members: ${entity.members}`;
+  }
+
+  return '';
+}
 
 function GenericCard({ entity }: Props) {
   const isMobile = useIsMobile();
 
   const cardWidth = isMobile ? 350 : 450;
   const pictureSideSize = isMobile ? 100 : 150;
+
+  const fans: string = getFans(entity);
 
   return (
     <Card
@@ -47,9 +68,9 @@ function GenericCard({ entity }: Props) {
               {entity.description}
             </Typography>
           ) : undefined}
-          {entity.subscribers ? (
+          {fans ? (
             <Typography variant='body2' color='text.secondary'>
-              Subscribers: {entity.subscribers}
+              {fans}
             </Typography>
           ) : undefined}
         </CardContent>

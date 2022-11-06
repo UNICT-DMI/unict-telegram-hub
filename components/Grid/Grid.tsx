@@ -8,7 +8,7 @@ const Grid = ({ submodule, filter }: Props) => {
   const [entities, setEntities] = useState<Array<EntityWithPosition> | undefined>(undefined);
 
   useEffect(() => {
-    fetch('api/channels')
+    fetch(`api/${submodule}`)
       .then(res => res.json())
       .then((data: Array<Entity>) => {
         setEntities(
@@ -21,7 +21,7 @@ const Grid = ({ submodule, filter }: Props) => {
         );
         setLoading(false);
       });
-  }, []);
+  }, [submodule]);
 
   return (
     <>
@@ -29,14 +29,14 @@ const Grid = ({ submodule, filter }: Props) => {
         <h1>Loading...</h1>
       ) : entities ? (
         <div className={styles.flexGrid}>
-          {entities.map(channel =>
-            !filter || channel.title.toLowerCase().search(filter) > -1 ? (
-              <GenericCard entity={channel} key={channel.title} />
+          {entities.map(entity =>
+            !filter || entity.title.toLowerCase().search(filter) > -1 ? (
+              <GenericCard entity={entity} key={entity.link} />
             ) : undefined
           )}
         </div>
       ) : (
-        <h1>No channels found</h1>
+        <h1>No results 😕</h1>
       )}
     </>
   );
