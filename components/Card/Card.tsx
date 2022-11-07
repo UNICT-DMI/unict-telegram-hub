@@ -41,7 +41,8 @@ function GenericCard({ entity }: Props) {
         flexDirection: 'column',
         justifyContent: 'center',
         width: cardWidth + 'px',
-        padding: '8px 12px'
+        padding: '8px 12px',
+        borderRadius: '16px'
       }}>
       <Box
         sx={{
@@ -50,7 +51,7 @@ function GenericCard({ entity }: Props) {
         }}>
         <CardMedia
           component='img'
-          src={entity.pictureURL}
+          src={entity.pictureURL ? entity.pictureURL : '/telegram.svg'}
           sx={{ width: pictureSideSize + 'px', alignSelf: 'center' }}
         />
         <CardContent
