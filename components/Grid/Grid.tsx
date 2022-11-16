@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { EntityWithPosition, Entity } from '../../models/api/Entity';
 import GenericCard from '../Card/Card';
 import styles from '../../styles/Grid.module.css';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const Grid = ({ submodule, filter }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [entities, setEntities] = useState<Array<EntityWithPosition> | undefined>(undefined);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`api/${submodule}`)
       .then(res => res.json())
       .then((data: Array<Entity>) => {
@@ -26,7 +28,7 @@ const Grid = ({ submodule, filter }: Props) => {
   return (
     <>
       {loading ? (
-        <h1>Loading...</h1>
+        <LoadingSpinner />
       ) : entities ? (
         <div className={styles.flexGrid}>
           {entities.map(entity =>
