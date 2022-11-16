@@ -9,20 +9,22 @@ const Grid = ({ submodule, filter }: Props) => {
   const [entities, setEntities] = useState<Array<EntityWithPosition> | undefined>(undefined);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`api/${submodule}`)
-      .then(res => res.json())
-      .then((data: Array<Entity>) => {
-        setEntities(
-          data.map((entity, index) => {
-            const entityWithPosition = entity as EntityWithPosition;
-            entityWithPosition.position = index + 1;
+    if (submodule !== '/[submodule]') {
+      setLoading(true);
+      fetch(`api/${submodule}`)
+        .then(res => res.json())
+        .then((data: Array<Entity>) => {
+          setEntities(
+            data.map((entity, index) => {
+              const entityWithPosition = entity as EntityWithPosition;
+              entityWithPosition.position = index + 1;
 
-            return entityWithPosition;
-          })
-        );
-        setLoading(false);
-      });
+              return entityWithPosition;
+            })
+          );
+          setLoading(false);
+        });
+    }
   }, [submodule]);
 
   return (
