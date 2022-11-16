@@ -1,8 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Group } from '../../models/api/Entity';
 
+const groupsAPI: string = `${process.env.API}/mid.php?path=GRUPPI/`;
+
 async function getNames(year: string): Promise<Array<string>> {
-  return fetch(`${process.env.API}/mid.php?path=GRUPPI/${year}.json`)
+  return fetch(`${groupsAPI}${year}.json`)
     .then(res => res.json())
     .then(data => {
       return data.names as string[];
@@ -12,12 +14,11 @@ async function getNames(year: string): Promise<Array<string>> {
 async function getData(groupName: string, year: string): Promise<Group> {
   const newGroup: Group = {} as Group;
 
-  await fetch(`${process.env.API}/mid.php?path=GRUPPI/${year}/${groupName}.json`)
+  await fetch(`${groupsAPI}${year}/${groupName}.json`)
     .then(res => res.json())
     .then(data => {
-      const tmpLink: string = data.link;
       newGroup.title = groupName;
-      newGroup.link = tmpLink.substring(1, tmpLink.length - 1);
+      newGroup.link = data.link.substring(1, data.link.length - 1);
       newGroup.description = data.description;
       newGroup.pictureURL = data.image_link.substring(1, data.image_link.length - 1);
       const tmpMembers: string[] = (data.members_number as string).split(' ');
