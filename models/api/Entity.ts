@@ -15,9 +15,9 @@ export type Group = Base & {
   mz_code?: string;
 };
 
-export interface Bot {}
+export type Bot = Base;
 
-export type Entity = Channel | Group /* |Bots */;
+export type Entity = Channel | Group | Bot;
 
 export type EntityWithPosition = Entity & {
   position: number;
