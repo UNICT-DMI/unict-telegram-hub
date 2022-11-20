@@ -1,10 +1,11 @@
 import styled from '@mui/material/styles/styled';
+import useIsMobile from '../../hooks/useIsMobile';
 
 const StyledFooter = styled('footer')(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: '8px 0',
+  flexDirection: useIsMobile() ? 'column' : 'row',
+  gap: useIsMobile() ? '0' : '1.5em',
+  padding: '8px',
   borderTop: `1px solid ${theme.palette.secondary.main}`
 }));
 
