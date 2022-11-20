@@ -31,10 +31,10 @@ const Grid = ({ submodule, filter }: Props) => {
     <>
       {loading ? (
         <LoadingSpinner />
-      ) : entities ? (
+      ) : entities && entities.length > 0 ? (
         <div className={styles.flexGrid}>
           {entities.map(entity =>
-            !filter || entity.title.toLowerCase().search(filter) > -1 ? (
+            !filter || entity.title.toLowerCase().includes(filter) ? (
               <GenericCard entity={entity} key={entity.link} />
             ) : undefined
           )}
