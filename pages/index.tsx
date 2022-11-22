@@ -48,21 +48,21 @@ export const routes: Route[] = [
     href: 'bachelor',
     subRoutes: [
       {
-        label: '1° anno',
+        label: '1° year',
         href: '',
         queryParameters: {
           year: '1'
         }
       },
       {
-        label: '2° anno',
+        label: '2° year',
         href: '',
         queryParameters: {
           year: '2'
         }
       },
       {
-        label: '3° anno',
+        label: '3° year',
         href: '',
         queryParameters: {
           year: '3'
@@ -75,14 +75,14 @@ export const routes: Route[] = [
     href: 'master',
     subRoutes: [
       {
-        label: '1° anno',
+        label: '1° year',
         href: '',
         queryParameters: {
           year: '1'
         }
       },
       {
-        label: '2° anno',
+        label: '2° year',
         href: '',
         queryParameters: {
           year: '2'
