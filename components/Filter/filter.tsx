@@ -11,6 +11,7 @@ const Filter = ({ setFilter }: Props): JSX.Element => {
         id='outlined-basic'
         variant='outlined'
         size='small'
+        placeholder='Filter by name'
         InputProps={{
           startAdornment: (
             <InputAdornment position='start'>
