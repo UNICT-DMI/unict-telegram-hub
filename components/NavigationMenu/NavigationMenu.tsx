@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/router';
 import React from 'react';
-import Route from '../../models/Route';
+import { Route } from '../../models/Route';
 
 const NavigationMenu = ({ route }: Props): JSX.Element => {
   const router = useRouter();

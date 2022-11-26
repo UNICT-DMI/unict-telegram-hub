@@ -11,11 +11,11 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import useIsMobile from '../../hooks/useIsMobile';
-import { routes } from '../../pages';
 import Filter from '../Filter/filter';
 import type { FilterSetter } from '../../models/Filter';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { routes } from '../../models/Route';
 
 const AppBarWrapper = ({ setFilter }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
