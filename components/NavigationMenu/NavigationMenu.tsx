@@ -1,9 +1,10 @@
+import React from 'react';
+import { useRouter } from 'next/router';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useRouter } from 'next/router';
-import React from 'react';
+import styled from '@mui/material/styles/styled';
 import { Route } from '../../models/Route';
 
 const NavigationMenu = ({ route }: Props): JSX.Element => {
@@ -26,6 +27,12 @@ const NavigationMenu = ({ route }: Props): JSX.Element => {
     });
   };
 
+  const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
+    backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))'
+  }));
+
   return (
     <>
       <Button
@@ -44,14 +51,15 @@ const NavigationMenu = ({ route }: Props): JSX.Element => {
           'aria-labelledby': 'basic-button'
         }}>
         {route.subRoutes?.map(subroute => (
-          <MenuItem
+          <StyledMenuItem
             key={subroute.label}
             onClick={() => {
               handleNavigation(`${route.href}/${subroute.href}`, subroute.queryParameters);
               handleClose();
-            }}>
+            }}
+            sx={{ width: 220 }}>
             {subroute.label}
-          </MenuItem>
+          </StyledMenuItem>
         ))}
       </Menu>
     </>
