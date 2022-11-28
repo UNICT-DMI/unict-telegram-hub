@@ -8,6 +8,7 @@ import { theme } from '.';
 import AppBarWrapper from '../components/AppBar/Appbar';
 import Footer from '../components/Footer/Footer';
 import Grid from '../components/Grid/Grid';
+import Home from '../components/Home/Home';
 import styles from '../styles/Hub.module.css';
 
 const Hub: NextPage = () => {
@@ -30,7 +31,7 @@ const Hub: NextPage = () => {
         <main className={styles.main}>
           <AppBarWrapper setFilter={setFilter} />
 
-          {submodule !== '/' ? <Grid submodule={submodule} filter={filter} /> : undefined}
+          {submodule !== '/' ? <Grid submodule={submodule} filter={filter} /> : <Home />}
         </main>
 
         <Footer />
