@@ -15,6 +15,7 @@ import Filter from '../Filter/filter';
 import type { FilterSetter } from '../../models/Filter';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MenuIcon from '@mui/icons-material/Menu';
 import { routes } from '../../models/Route';
 
 const AppBarWrapper = ({ setFilter }: Props) => {
@@ -75,7 +76,7 @@ const AppBarWrapper = ({ setFilter }: Props) => {
         <Box sx={{ display: 'flex', flexGrow: 1 }}>
           {useIsMobile() ? (
             <>
-              <Button onClick={() => setIsOpen(true)}>Drawer</Button>
+              <Button onClick={() => setIsOpen(true)}><MenuIcon /></Button>
               <SwipeableDrawer
                 open={isOpen}
                 onClose={() => setIsOpen(false)}
