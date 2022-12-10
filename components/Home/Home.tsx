@@ -15,7 +15,11 @@ const Home = (): JSX.Element => {
     { label: 'React', href: 'https://reactjs.org/' },
     { label: 'Next.js', href: 'https://nextjs.org/' },
     { label: 'Material UI', href: 'https://mui.com/material-ui/getting-started/overview/' },
-    { label: 'loading.io', href: 'https://github.com/loadingio/css-spinner/' }
+    { label: 'loading.io', href: 'https://github.com/loadingio/css-spinner/' },
+    {
+      label: 'medals vector art',
+      href: 'https://www.vecteezy.com/vector-art/2110607-gold-silver-bronze-medal-for-winner-tournament'
+    }
   ];
 
   return (

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,6 +7,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import useIsMobile from '../../hooks/useIsMobile';
 import { Channel, Entity, EntityWithPosition, Group } from '../../models/api/Entity';
+import styled from '@mui/material/styles/styled';
 
 function isChannel(entity: Entity): entity is Channel {
   return (entity as Channel).subscribers != undefined;
@@ -29,20 +31,35 @@ function getFans(entity: Entity): string {
 function GenericCard({ entity }: Props) {
   const isMobile = useIsMobile();
 
-  const cardWidth = isMobile ? 350 : 450;
-  const pictureSideSize = isMobile ? 100 : 150;
+  const cardWidth = `${isMobile ? 350 : 450}px`;
+  const pictureSideSize = `${isMobile ? 100 : 150}px`;
+  const medalWidth = `${isMobile ? 25 : 40}px`;
+  const medalHeight = `${isMobile ? 35 : 50}px`;
+  const circleSize = `${isMobile ? 25 : 30}px`;
+
+  const StyledCircle = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: circleSize,
+    height: circleSize,
+    backgroundColor: theme.palette.secondary.light,
+    borderRadius: '50%'
+  }));
 
   const fans: string = getFans(entity);
 
   return (
     <Card
       sx={{
+        position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        width: cardWidth + 'px',
+        width: cardWidth,
         padding: '8px 12px',
-        borderRadius: '16px'
+        borderRadius: '16px',
+        overflow: 'unset'
       }}>
       <Box
         sx={{
@@ -52,7 +69,7 @@ function GenericCard({ entity }: Props) {
         <CardMedia
           component='img'
           src={entity.pictureURL ? entity.pictureURL : '/telegram.svg'}
-          sx={{ width: pictureSideSize + 'px', alignSelf: 'center' }}
+          sx={{ width: pictureSideSize, alignSelf: 'center' }}
         />
         <CardContent
           sx={{
@@ -75,7 +92,24 @@ function GenericCard({ entity }: Props) {
             </Typography>
           ) : undefined}
         </CardContent>
-        <span style={{ position: 'absolute', top: '0', right: '0' }}>{entity.position}</span>
+      </Box>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '-10px',
+          right: '-10px'
+        }}>
+        {entity.position <= 3 ? (
+          <Box sx={{ width: medalWidth, height: medalHeight }}>
+            <Image
+              src={`/medal_${entity.position}.svg`}
+              layout='fill'
+              alt='Medal corresponding to position'
+            />
+          </Box>
+        ) : (
+          <StyledCircle>{entity.position}</StyledCircle>
+        )}
       </Box>
     </Card>
   );
