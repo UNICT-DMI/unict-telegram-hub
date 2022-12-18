@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -20,7 +20,11 @@ const AppBarWrapper = ({ setFilter }: Props) => {
     return routes.map(route => {
       if (route.subRoutes) {
         return isMobile ? (
-          <NavigationAccordion route={route} setIsOpen={setIsOpen as any} key={route.href} />
+          <NavigationAccordion
+            route={route}
+            setIsOpen={setIsOpen as Dispatch<SetStateAction<boolean | undefined>>}
+            key={route.href}
+          />
         ) : (
           <NavigationMenu route={route} key={route.href} />
         );

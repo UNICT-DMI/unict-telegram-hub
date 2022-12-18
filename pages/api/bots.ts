@@ -6,8 +6,8 @@ const botsAPI: string = `${process.env.API}/mid.php?path=GRUPPI/BOT`;
 async function getNames(): Promise<Array<string>> {
   return fetch(`${botsAPI}.json`)
     .then(res => res.json())
-    .then(data => {
-      return data.names as string[];
+    .then((data: { names: Array<string> }) => {
+      return data.names;
     });
 }
 
