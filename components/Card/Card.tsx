@@ -28,7 +28,7 @@ function getFans(entity: Entity): string {
   return '';
 }
 
-function GenericCard({ entity }: Props) {
+function GenericCard({ isLeaderboard, entity }: Props) {
   const isMobile = useIsMobile();
 
   const cardWidth = `${isMobile ? 350 : 450}px`;
@@ -93,24 +93,26 @@ function GenericCard({ entity }: Props) {
           ) : undefined}
         </CardContent>
       </Box>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '-10px',
-          right: '-10px'
-        }}>
-        {entity.position <= 3 ? (
-          <Box sx={{ width: medalWidth, height: medalHeight }}>
-            <Image
-              src={`/medal_${entity.position}.svg`}
-              layout='fill'
-              alt='Medal corresponding to position'
-            />
-          </Box>
-        ) : (
-          <StyledCircle>{entity.position}</StyledCircle>
-        )}
-      </Box>
+      {isLeaderboard ? (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '-10px',
+            right: '-10px'
+          }}>
+          {entity.position <= 3 ? (
+            <Box sx={{ width: medalWidth, height: medalHeight }}>
+              <Image
+                src={`/medal_${entity.position}.svg`}
+                layout='fill'
+                alt='Medal corresponding to position'
+              />
+            </Box>
+          ) : (
+            <StyledCircle>{entity.position}</StyledCircle>
+          )}
+        </Box>
+      ) : undefined}
     </Card>
   );
 }
@@ -118,5 +120,6 @@ function GenericCard({ entity }: Props) {
 export default GenericCard;
 
 interface Props {
+  isLeaderboard: boolean;
   entity: EntityWithPosition;
 }

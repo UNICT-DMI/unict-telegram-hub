@@ -37,7 +37,9 @@ const Grid = ({ submodule, filter }: Props) => {
 
       for (let entity of entities) {
         if (!filter || entity.title.toLowerCase().includes(filter)) {
-          filtered.push(<GenericCard entity={entity} key={entity.link} />);
+          filtered.push(
+            <GenericCard isLeaderboard={submodule !== '/bots'} entity={entity} key={entity.link} />
+          );
 
           if (noEntityMatches) {
             noEntityMatches = false;
