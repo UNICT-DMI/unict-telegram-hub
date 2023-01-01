@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Toolbar from '@mui/material/Toolbar';
 import useIsMobile from '../../hooks/useIsMobile';
-import Filter from '../Filter/filter';
+import Filter from '../Filter/Filter';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
 import NavigationAccordion from '../NavigationAccordion/NavigationAccordion';
 import MenuIcon from '@mui/icons-material/Menu';
