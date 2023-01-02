@@ -29,7 +29,7 @@ const Hub: NextPage = () => {
 
       <div className={styles.container}>
         <main className={styles.main}>
-          <AppBarWrapper setFilter={setFilter} />
+          <AppBarWrapper filteringEnabled={submodule !== '/'} setFilter={setFilter} />
 
           {submodule !== '/' ? <Grid submodule={submodule} filter={filter} /> : <Home />}
         </main>

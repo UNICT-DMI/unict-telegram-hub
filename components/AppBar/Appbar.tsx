@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { routes } from '../../models/Route';
 import type { FilterSetter } from '../../models/Filter';
 
-const AppBarWrapper = ({ setFilter }: Props) => {
+const AppBarWrapper = ({ filteringEnabled, setFilter }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function getLinks(isMobile: boolean) {
@@ -58,7 +58,7 @@ const AppBarWrapper = ({ setFilter }: Props) => {
             getLinks(false)
           )}
         </Box>
-        <Filter setFilter={setFilter} />
+        {filteringEnabled ? <Filter setFilter={setFilter} /> : undefined}
       </Toolbar>
     </AppBar>
   );
@@ -67,5 +67,6 @@ const AppBarWrapper = ({ setFilter }: Props) => {
 export default AppBarWrapper;
 
 interface Props {
+  filteringEnabled: boolean;
   setFilter: FilterSetter;
 }
