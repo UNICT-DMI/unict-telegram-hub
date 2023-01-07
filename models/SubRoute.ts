@@ -5,7 +5,7 @@ interface SubRoute {
   year: string;
 }
 
-const years: readonly SubRoute[] = [
+const years: ReadonlyArray<SubRoute> = [
   { label: 'First year', year: '1' },
   { label: 'Second year', year: '2' },
   { label: 'Third year', year: '3' }

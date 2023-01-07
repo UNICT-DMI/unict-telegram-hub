@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Bot } from '../../models/api/Entity';
 
-const botsAPI: string = `${process.env.API}/mid.php?path=GRUPPI/BOT`;
+const botsAPI = `${process.env.API!}/mid.php?path=GRUPPI/BOT`;
 
 async function getNames(): Promise<Array<string>> {
   return fetch(`${botsAPI}.json`)

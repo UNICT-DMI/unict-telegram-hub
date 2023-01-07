@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Group } from '../../models/api/Entity';
 
-const groupsAPI: string = `${process.env.API}/mid.php?path=GRUPPI/`;
+const groupsAPI = `${process.env.API!}/mid.php?path=GRUPPI/`;
 
 async function getNames(year: string): Promise<Array<string>> {
   return fetch(`${groupsAPI}${year}.json`)
@@ -21,7 +21,7 @@ async function getData(groupName: string, year: string): Promise<Group> {
       newGroup.link = data.link.substring(1, data.link.length - 1);
       newGroup.description = data.description;
       newGroup.pictureURL = data.image_link.substring(1, data.image_link.length - 1);
-      const tmpMembers: string[] = (data.members_number as string).split(' ');
+      const tmpMembers: Array<string> = (data.members_number as string).split(' ');
       newGroup.members = parseInt(tmpMembers[0], 10);
       newGroup.code = data.code;
       newGroup.mz_code = data.mzcode;
@@ -53,6 +53,9 @@ export function getGroups(
           .then(groups => {
             groups.sort(compareMembers);
             res.send(groups);
+          })
+          .catch(() => {
+            throw new Error('Failed to fetch list of group names');
           });
       } else {
         throw new Error('Specified "year" query parameter value is not in range of allowed values');

@@ -21,10 +21,14 @@ const NavigationMenu = ({ route }: Props): JSX.Element => {
   };
 
   const handleNavigation = (href: string, query?: Record<string, string>) => {
-    router.push({
-      pathname: href,
-      query
-    });
+    router
+      .push({
+        pathname: href,
+        query
+      })
+      .catch(() => {
+        console.error('Unable to navigate to desired route');
+      });
   };
 
   const StyledMenuItem = styled(MenuItem)(({ theme }) => ({

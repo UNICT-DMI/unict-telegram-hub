@@ -24,6 +24,9 @@ const Grid = ({ submodule, filter }: Props) => {
             })
           );
           setLoading(false);
+        })
+        .catch((error: Error) => {
+          console.error(`Failed to fetch entities with error: ${error.message}`);
         });
     }
   }, [submodule]);
@@ -35,7 +38,7 @@ const Grid = ({ submodule, filter }: Props) => {
       let noEntityMatches = filter != undefined;
       const filtered = [];
 
-      for (let entity of entities) {
+      for (const entity of entities) {
         if (!filter || entity.title.toLowerCase().includes(filter)) {
           filtered.push(
             <GenericCard isLeaderboard={submodule !== '/bots'} entity={entity} key={entity.link} />
@@ -50,7 +53,7 @@ const Grid = ({ submodule, filter }: Props) => {
       if (noEntityMatches) {
         return (
           <Box sx={{ textAlign: 'center' }}>
-            <h1>No matches for {`"${filter}"`}</h1>
+            <h1>No matches for {`"${filter ?? ''}"`}</h1>
             {confusedEmoji}
           </Box>
         );

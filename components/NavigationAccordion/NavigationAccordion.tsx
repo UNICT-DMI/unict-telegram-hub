@@ -22,10 +22,14 @@ const NavigationAccordion = ({ route, setIsOpen }: Props): JSX.Element => {
   const router = useRouter();
 
   const handleNavigation = (href: string, query?: Record<string, string>) => {
-    router.push({
-      pathname: href,
-      query
-    });
+    router
+      .push({
+        pathname: href,
+        query
+      })
+      .catch(() => {
+        console.error('Unable to navigate to desired route');
+      });
   };
 
   return (
