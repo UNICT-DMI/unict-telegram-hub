@@ -12,7 +12,7 @@ const Grid = ({ submodule, filter }: Props) => {
   useEffect(() => {
     if (submodule !== '/[submodule]') {
       setLoading(true);
-      fetch(`api/${submodule}`)
+      fetch(`api${submodule}`)
         .then(res => res.json())
         .then((data: Array<Entity>) => {
           setEntities(
