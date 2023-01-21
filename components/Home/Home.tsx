@@ -10,6 +10,10 @@ const StyledH2 = styled('h2')(({ theme }) => ({
   color: theme.palette.primary.main
 }));
 
+const StyledLink = styled('a')(({ theme }) => ({
+  color: theme.palette.primary.main
+}));
+
 const Home = (): JSX.Element => {
   const technologies: Array<Technology> = [
     { label: 'React', href: 'https://reactjs.org/' },
@@ -31,7 +35,14 @@ const Home = (): JSX.Element => {
       <StyledH1 style={{ textAlign: 'center' }}>UNICT Telegram Hub</StyledH1>
       <p>
         This project lists various Telegram links of Channels, Groups and Bots related to the
-        University of Catania.
+        University of Catania. To report bugs or give suggestions{' '}
+        <StyledLink
+          href='https://github.com/UNICT-DMI/unict-telegram-hub'
+          target='_blank'
+          rel='noreferrer'>
+          open a new issue on Github
+        </StyledLink>
+        .
       </p>
       <StyledH2>Technologies used</StyledH2>
       <ul>
