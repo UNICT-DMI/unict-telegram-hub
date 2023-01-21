@@ -1,8 +1,8 @@
-interface Base {
-  title: string;
+export interface Base {
   link: string;
+  pictureURL: string | undefined;
+  title: string;
   description: string;
-  pictureURL: string;
 }
 
 export type Channel = Base & {
