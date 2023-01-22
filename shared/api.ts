@@ -55,13 +55,21 @@ function getLinks(
   }
 }
 
-function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithScore> {
-  return new Promise((resolve, reject) => {
+function sendHTTPRequest<T>(
+  link: string,
+  encoding: BufferEncoding = 'utf-8',
+  callback: (
+    data: string,
+    resolve: (value: T | PromiseLike<T>) => void,
+    reject: (reason?: any) => void
+  ) => void
+): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
     get(link, res => {
-      let data = '';
+      const chunks: Array<Buffer> = [];
 
-      res.on('data', chunk => {
-        data += chunk;
+      res.on('data', (chunk: Buffer) => {
+        chunks.push(chunk);
       });
 
       res.on('error', error => {
@@ -69,27 +77,41 @@ function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithSc
       });
 
       res.on('end', () => {
-        const $ = load(data);
-
-        const dataNode = $('.tgme_page');
-        const commonClassPrefix = 'tgme_page_';
-
-        const entity: BaseWithScore = {
-          link: link,
-          pictureURL: dataNode.find(`img.${commonClassPrefix}photo_image`).prop('src'),
-          title: dataNode.find(`.${commonClassPrefix}title`).children().first().text(),
-          description: dataNode.find(`.${commonClassPrefix}description`).text()
-        };
-
-        if (entitiesType !== 'bots') {
-          entity.score = parseInt(
-            dataNode.find(`.${commonClassPrefix}extra`).text().replace(/ /, '')
-          );
-        }
-
-        resolve(entity);
+        callback(Buffer.concat(chunks).toString(encoding), resolve, reject);
       });
     });
+  });
+}
+
+function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithScore> {
+  return sendHTTPRequest<BaseWithScore>(link, undefined, (data, resolve, reject) => {
+    const $ = load(data);
+
+    const dataNode = $('.tgme_page');
+    const commonClassPrefix = 'tgme_page_';
+
+    const entity: BaseWithScore = {
+      link: link,
+      title: dataNode.find(`.${commonClassPrefix}title`).children().first().text(),
+      description: dataNode.find(`.${commonClassPrefix}description`).text()
+    };
+
+    if (entitiesType !== 'bots') {
+      entity.score = parseInt(dataNode.find(`.${commonClassPrefix}extra`).text().replace(/ /, ''));
+    }
+
+    const pictureURL = dataNode.find(`img.${commonClassPrefix}photo_image`).prop('src');
+    if (pictureURL) {
+      log('warn', pictureURL);
+      sendHTTPRequest(pictureURL, 'base64', picture => {
+        entity.pictureURL = `data:image/png;base64,${picture}`;
+        resolve(entity);
+      }).catch(error => {
+        reject(error);
+      });
+    } else {
+      resolve(entity);
+    }
   });
 }
 
