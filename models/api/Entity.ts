@@ -1,6 +1,6 @@
 export interface Base {
   link: string;
-  pictureURL: string | undefined;
+  pictureURL?: string;
   title: string;
   description: string;
 }
