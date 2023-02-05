@@ -37,7 +37,7 @@ const channelsNames: ReadonlyArray<string> = [
 
 function toChannelEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Channel> {
   return entitiesData.map<Channel>(entity => {
-    const score = (entity.score ||= 0);
+    const score = entity.score ?? 0;
     delete entity.score;
 
     const channelEntity: Channel = entity as Channel;

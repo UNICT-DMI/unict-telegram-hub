@@ -13,12 +13,14 @@ function log(type: 'log' | 'warn' | 'error', value: unknown) {
 function shouldUpdateCache(cachedDataPath: string) {
   let shouldUpdate = false;
 
+  const cachedDataFolders = cachedDataPath.substring(0, cachedDataPath.lastIndexOf('/'));
+
   try {
-    accessSync(cachedDataFolderPath, constants.R_OK | constants.W_OK);
+    accessSync(cachedDataFolders, constants.R_OK | constants.W_OK);
   } catch {
     log('warn', 'Creating cache directory');
 
-    mkdirSync(cachedDataFolderPath, 0o666);
+    mkdirSync(cachedDataFolders, { recursive: true, mode: 0o666 });
     shouldUpdate = true;
   }
 
@@ -39,29 +41,13 @@ function shouldUpdateCache(cachedDataPath: string) {
   return shouldUpdate;
 }
 
-function getLinks(
-  entitiesType: EntitiesType,
-  entities: ReadonlyArray<string>
-): ReadonlyArray<string> {
-  switch (entitiesType) {
-    case 'channels':
-    case 'bots':
-      return entities.map(name => `https://t.me/${name}`);
-    case 'groups':
-      return [];
-    default:
-      log('error', 'Unknown entity type');
-      return [];
-  }
-}
-
 function sendHTTPRequest<T>(
   link: string,
   encoding: BufferEncoding = 'utf-8',
   callback: (
     data: string,
     resolve: (value: T | PromiseLike<T>) => void,
-    reject: (reason?: any) => void
+    reject: (reason?: unknown) => void
   ) => void
 ): Promise<T> {
   return new Promise<T>((resolve, reject) => {
@@ -101,15 +87,16 @@ function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithSc
     }
 
     const pictureURL = dataNode.find(`img.${commonClassPrefix}photo_image`).prop('src');
-    if (pictureURL) {
-      log('warn', pictureURL);
+    if (pictureURL?.startsWith('https:')) {
       sendHTTPRequest(pictureURL, 'base64', picture => {
         entity.pictureURL = `data:image/png;base64,${picture}`;
         resolve(entity);
       }).catch(error => {
+        log('error', error);
         reject(error);
       });
     } else {
+      entity.pictureURL = pictureURL;
       resolve(entity);
     }
   });
@@ -122,7 +109,12 @@ async function fetchEntitiesData(
   log('warn', `Fetching latest data for: ${entitiesType}`);
 
   return await Promise.all(
-    getLinks(entitiesType, entities).map(link => fetchData(entitiesType, link))
+    entities.map(suffix =>
+      fetchData(
+        entitiesType,
+        `https://t.me/${['bachelor', 'master'].includes(entitiesType) ? 'joinchat/' : ''}${suffix}`
+      )
+    )
   );
 }
 
@@ -152,9 +144,12 @@ export function getData<T>(
   entitiesType: EntitiesType,
   entities: ReadonlyArray<string>,
   callback: (entitiesData: Array<BaseWithScore>, res: NextApiResponse<ReadonlyArray<T>>) => void,
-  res: NextApiResponse<ReadonlyArray<T>>
+  res: NextApiResponse<ReadonlyArray<T>>,
+  groupsYear?: string
 ) {
-  const cachedDataPath = `${cachedDataFolderPath}/${entitiesType}`;
+  const cachedDataPath = `${cachedDataFolderPath}/${entitiesType}${
+    ['bachelor', 'master'].includes(entitiesType) && groupsYear ? '/' + groupsYear : ''
+  }`;
 
   if (shouldUpdateCache(cachedDataPath)) {
     fetchEntitiesData(entitiesType, entities)
@@ -181,6 +176,6 @@ export function getData<T>(
   }
 }
 
-type EntitiesType = 'channels' | 'groups' | 'bots';
+type EntitiesType = 'channels' | 'bots' | 'bachelor' | 'master';
 
 export type BaseWithScore = Base & { score?: number };
