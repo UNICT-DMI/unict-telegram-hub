@@ -11,7 +11,7 @@ const years: ReadonlyArray<SubRoute> = [
   { label: 'Third year', year: '3' }
 ] as const;
 
-export const bachelorSubRoutes: Route[] = [
+export const bachelorSubRoutes: ReadonlyArray<Route> = [
   {
     label: years[0].label,
     href: '',
@@ -33,9 +33,9 @@ export const bachelorSubRoutes: Route[] = [
       year: years[2].year
     }
   }
-];
+] as const;
 
-export const masterSubRoutes: Route[] = [
+export const masterSubRoutes: ReadonlyArray<Route> = [
   {
     label: years[0].label,
     href: '',
@@ -50,4 +50,4 @@ export const masterSubRoutes: Route[] = [
       year: years[1].year
     }
   }
-];
+] as const;

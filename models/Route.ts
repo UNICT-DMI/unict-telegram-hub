@@ -4,10 +4,10 @@ export interface Route {
   label: string;
   href: string;
   queryParameters?: Record<string, string>;
-  subRoutes?: Array<Route>;
+  subRoutes?: ReadonlyArray<Route>;
 }
 
-export const routes: Route[] = [
+export const routes: ReadonlyArray<Route> = [
   {
     label: 'Home',
     href: '/'
@@ -30,4 +30,4 @@ export const routes: Route[] = [
     href: 'master',
     subRoutes: masterSubRoutes
   }
-];
+] as const;
