@@ -1,58 +1,105 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Group } from '../../models/api/Entity';
+import { Group, GroupsDictionary, GroupsDictionaryValue } from '../../models/api/Entity';
 import { BaseWithScore, getData } from '../../shared/api';
 
-const groupsNames: Record<1 | 2 | 3, Record<string, string>> = {
+const groupsNames: GroupsDictionary = {
   1: {
-    'PROGRAMMAZIONE I E LABORATORIO': 'CBrlIVEAFB-nRjAvEnDdkw',
-    'ELEMENTI DI ANALISI MATEMATICA 1': 'CBrlIVQ8_DPFaQGHETxGjw',
-    'FONDAMENTI DI INFORMATICA': 'CBrlIVSBNrdJNkk53o08tA',
-    'PROGRAMMAZIONE II': 'CBrlIU3bfvqPTBfF11iOow',
-    'ALGEBRA LINEARE E GEOMETRIA': 'CBrlIU3QBjfWP-EUJcFgZg',
-    'ARCHITETTURA DEGLI ELABORATORI E LABORATORIO': 'CBrlIVVU5S_SCyQBL-fSOw',
-    'STRUTTURE DISCRETE': 'CBrlIVkSPZRNcpri3AofUA',
-    'ULTERIORI CONOSCENZE LINGUISTICHE': 'CBrlIU649nHwSICrddW5Vw',
-    'Quality Development Chat': 'W3UhKxQBI5llMTBk'
+    'PROGRAMMAZIONE I E LABORATORIO': {
+      suffix: 'CBrlIVEAFB-nRjAvEnDdkw',
+      teamsCodes: ['2v8sv7c', 'qtrs803']
+    },
+    'ELEMENTI DI ANALISI MATEMATICA 1': {
+      suffix: 'CBrlIVQ8_DPFaQGHETxGjw',
+      teamsCodes: ['d6xcbpr', 'lp5w1fv']
+    },
+    'FONDAMENTI DI INFORMATICA': {
+      suffix: 'CBrlIVSBNrdJNkk53o08tA',
+      teamsCodes: ['ejrynpm', 'c2j8hks']
+    },
+    'PROGRAMMAZIONE II': { suffix: 'CBrlIU3bfvqPTBfF11iOow', teamsCodes: ['lmygl88', '2a1gpff'] },
+    'ALGEBRA LINEARE E GEOMETRIA': {
+      suffix: 'CBrlIU3QBjfWP-EUJcFgZg',
+      teamsCodes: ['tv73vxy', '7ul1o62']
+    },
+    'ARCHITETTURA DEGLI ELABORATORI E LABORATORIO': {
+      suffix: 'CBrlIVVU5S_SCyQBL-fSOw',
+      teamsCodes: ['75p16zi', 'ng7jsih']
+    },
+    'STRUTTURE DISCRETE': { suffix: 'CBrlIVkSPZRNcpri3AofUA', teamsCodes: ['nn0ukwu', 'vmwcsyn'] },
+    'ULTERIORI CONOSCENZE LINGUISTICHE': {
+      suffix: 'CBrlIU649nHwSICrddW5Vw',
+      teamsCodes: ['tf42bu0']
+    },
+    'Quality Development Chat': { suffix: 'W3UhKxQBI5llMTBk', teamsCodes: [] }
   },
   2: {
-    'SISTEMI OPERATIVI': 'CBrlIVFOiMah4AXblVULjg',
-    'RETI DI CALCOLATORI': 'CBrlIVdKV2ynosTCF6FXDw',
-    'INGEGNERIA DEL SOFTWARE': 'CBrlIVk9UxA4dL45yDiKOg',
-    'ALGORITMI E LABORATORIO': 'CBrlIUVDCCJ38sE87xIcgg',
-    'BASI DI DATI': 'CBrlIRtpLNU_A2KwNmwVhg',
-    '[Discussione] Interazione e Multimedia L-31': 'BKvM41e9Tg7uTwz8kHj-wQ',
-    'ELEMENTI DI ANALISI MATEMATICA 2': 'CBrlIVTJ76lA5HGYfjJtcg'
+    'SISTEMI OPERATIVI': { suffix: 'CBrlIVFOiMah4AXblVULjg', teamsCodes: ['i412gv5', 'qlxao81'] },
+    'RETI DI CALCOLATORI': { suffix: 'CBrlIVdKV2ynosTCF6FXDw', teamsCodes: ['wro3re7'] },
+    'INGEGNERIA DEL SOFTWARE': { suffix: 'CBrlIVk9UxA4dL45yDiKOg', teamsCodes: ['0dg7gab'] },
+    'ALGORITMI E LABORATORIO': {
+      suffix: 'CBrlIUVDCCJ38sE87xIcgg',
+      teamsCodes: ['jm6xvd6', '5llo7w4']
+    },
+    'BASI DI DATI': { suffix: 'CBrlIRtpLNU_A2KwNmwVhg', teamsCodes: ['zcndn3g', 'cp6ryjr'] },
+    '[Discussione] Interazione e Multimedia L-31': {
+      suffix: 'BKvM41e9Tg7uTwz8kHj-wQ',
+      teamsCodes: ['1vd4wnf', 'twrmvmm']
+    },
+    'ELEMENTI DI ANALISI MATEMATICA 2': {
+      suffix: 'CBrlIVTJ76lA5HGYfjJtcg',
+      teamsCodes: ['63og1li', '0wdw57b']
+    }
   },
   3: {
-    'Web Development 2022': 'AZhFaRsSN9W3cfcXYi4PDA',
-    'METODI MATEMATICI E STATISTICI': 'CBrlIVFVIfl_w8WhReAZPg',
-    FISICA: 'CBrlIUeuTu5odGt6eRgOpA',
-    'STARTUP DI IMPRESA E MODELLI DI BUSINESS': 'CBrlIU0DaBKsxNErRZ5njQ',
-    'TECNOLOGIE PER I SISTEMI DISTRIBUITI E IL WEB CON LABORATORIO': 'CBrlIVIOYEycrYL7MP3hQQ',
-    tap: 'DPCishPgqXBxeWUbrUKyCg',
-    'INTRODUZIONE AL DATA MINING': 'CBrlIVVLvys5ud9dYiWCyw',
-    'INTERNET SECURITY': 'CBrlIUTyTMASy6PmH-QSTQ',
-    'PROGRAMMAZIONE MOBILE': 'CBrlIVYAvOA_ojVVh27acw',
-    'COMPUTER GRAFICA': 'CBrlIUWYpjRgjchQWwouUA',
-    'IT LAW': 'CBrlIVYsN-0wnWb_bECbXA',
-    'DIGITAL FORENSICS': 'CBrlIVcja2kE2R5NoMGLww',
-    'SVILUPPO DI GIOCHI DIGITALI': 'CBrlIUO9fK2DGryQA1uNxw',
-    'SOCIAL MEDIA MANAGEMENT': 'CBrlIUvKnmOSU7JAEG4Dkg',
-    'LABORATORIO DI SISTEMI A MICROCONTROLLORE': 'CBrlIU61FgAEE3SgYXMadg',
-    'PROGRAMMAZIONE PARALLELA SU ARCHITETTURE GPU': 'CBrlIVAlAFfpGlVDLm7SNQ',
-    'INFORMATICA MUSICALE': 'CBrlIURbPezFW11x1Z386A',
-    'SISTEMI CENTRALI': 'CBrlIUiemx0FlarkbsqG8w',
-    'CALCOLO NUMERICO': 'CBrlIVY39wvx6i6ERrVPQw'
+    'Web Development 2022': { suffix: 'AZhFaRsSN9W3cfcXYi4PDA', teamsCodes: ['j0bqg8n'] },
+    'METODI MATEMATICI E STATISTICI': { suffix: 'CBrlIVFVIfl_w8WhReAZPg', teamsCodes: ['jy5rnn8'] },
+    FISICA: { suffix: 'CBrlIUeuTu5odGt6eRgOpA', teamsCodes: ['qd3vr5p'] },
+    'STARTUP DI IMPRESA E MODELLI DI BUSINESS': {
+      suffix: 'CBrlIU0DaBKsxNErRZ5njQ',
+      teamsCodes: ['jdy4mk5']
+    },
+    'TECNOLOGIE PER I SISTEMI DISTRIBUITI E IL WEB CON LABORATORIO': {
+      suffix: 'CBrlIVIOYEycrYL7MP3hQQ',
+      teamsCodes: ['bfei9jj']
+    },
+    tap: { suffix: 'DPCishPgqXBxeWUbrUKyCg', teamsCodes: ['cwecmqh'] },
+    'INTRODUZIONE AL DATA MINING': { suffix: 'CBrlIVVLvys5ud9dYiWCyw', teamsCodes: ['9n8fwtm'] },
+    'INTERNET SECURITY': { suffix: 'CBrlIUTyTMASy6PmH-QSTQ', teamsCodes: ['a6vfkk5'] },
+    'PROGRAMMAZIONE MOBILE': { suffix: 'CBrlIVYAvOA_ojVVh27acw', teamsCodes: ['pdzgqm8'] },
+    'COMPUTER GRAFICA': { suffix: 'CBrlIUWYpjRgjchQWwouUA', teamsCodes: ['mnzsn9j'] },
+    'IT LAW': { suffix: 'CBrlIVYsN-0wnWb_bECbXA', teamsCodes: ['hob6saf'] },
+    'DIGITAL FORENSICS': { suffix: 'CBrlIVcja2kE2R5NoMGLww', teamsCodes: ['2jc74j2'] },
+    'SVILUPPO DI GIOCHI DIGITALI': { suffix: 'CBrlIUO9fK2DGryQA1uNxw', teamsCodes: ['x7fuqlt'] },
+    'SOCIAL MEDIA MANAGEMENT': { suffix: 'CBrlIUvKnmOSU7JAEG4Dkg', teamsCodes: ['e4mbxsj'] },
+    'LABORATORIO DI SISTEMI A MICROCONTROLLORE': {
+      suffix: 'CBrlIU61FgAEE3SgYXMadg',
+      teamsCodes: ['618usrd']
+    },
+    'PROGRAMMAZIONE PARALLELA SU ARCHITETTURE GPU': {
+      suffix: 'CBrlIVAlAFfpGlVDLm7SNQ',
+      teamsCodes: ['3icuged']
+    },
+    'INFORMATICA MUSICALE': { suffix: 'CBrlIURbPezFW11x1Z386A', teamsCodes: ['7p26czo'] },
+    'SISTEMI CENTRALI': { suffix: 'CBrlIUiemx0FlarkbsqG8w', teamsCodes: ['bs923lh'] },
+    'CALCOLO NUMERICO': { suffix: 'CBrlIVY39wvx6i6ERrVPQw', teamsCodes: [] }
   }
 };
 
-function toGroupEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Group> {
-  return entitiesData.map<Group>(entity => {
+function toGroupEntities(
+  entitiesData: Array<BaseWithScore>,
+  teamsCodes?: ReadonlyArray<GroupsDictionaryValue['teamsCodes']>
+): ReadonlyArray<Group> {
+  return entitiesData.map<Group>((entity, index) => {
     const score = entity.score ?? 0;
     delete entity.score;
 
     const groupEntity: Group = entity as Group;
     groupEntity.members = score;
+
+    if (teamsCodes) {
+      groupEntity.code = teamsCodes[index][0];
+      groupEntity.mz_code = teamsCodes[index][1];
+    }
 
     return groupEntity;
   });
@@ -60,9 +107,10 @@ function toGroupEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Grou
 
 function returnGroupEntities(
   groupEntities: Array<BaseWithScore>,
-  res: NextApiResponse<ReadonlyArray<Group>>
+  res: NextApiResponse<ReadonlyArray<Group>>,
+  teamsCodes?: ReadonlyArray<GroupsDictionaryValue['teamsCodes']>
 ): void {
-  res.json(toGroupEntities(groupEntities));
+  res.json(toGroupEntities(groupEntities, teamsCodes));
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<ReadonlyArray<Group>>) {

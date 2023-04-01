@@ -4,10 +4,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Link from '@mui/material/Link';
+import styled from '@mui/material/styles/styled';
 import Typography from '@mui/material/Typography';
 import useIsMobile from '../../hooks/useIsMobile';
 import { Channel, Entity, EntityWithPosition, Group } from '../../models/api/Entity';
-import styled from '@mui/material/styles/styled';
 
 function isChannel(entity: Entity): entity is Channel {
   return (entity as Channel).subscribers != undefined;
@@ -67,7 +67,7 @@ function GenericCard({ isLeaderboard, entity }: Props) {
           display: 'flex'
         }}>
         <CardMedia
-          component='img'
+          component="img"
           src={entity.pictureURL ? entity.pictureURL : '/telegram.svg'}
           sx={{ width: pictureSideSize, alignSelf: 'center' }}
         />
@@ -78,18 +78,32 @@ function GenericCard({ isLeaderboard, entity }: Props) {
             justifyContent: 'space-between',
             padding: '8px'
           }}>
-          <Link href={entity.link} target='_blank' rel='noopener' variant='h5' underline='hover'>
+          <Link href={entity.link} target="_blank" rel="noopener" variant="h5" underline="hover">
             {entity.title}
           </Link>
           {entity.description ? (
-            <Typography variant='body2' color='text.primary'>
+            <Typography variant="body2" color="text.primary">
               {entity.description}
             </Typography>
           ) : undefined}
           {fans ? (
-            <Typography variant='body2' color='text.secondary'>
+            <Typography variant="body2" color="text.secondary">
               {fans}
             </Typography>
+          ) : undefined}
+          {isGroup(entity) ? (
+            <>
+              {entity.code ? (
+                <Typography variant="body2" color="text.secondary">
+                  Code: {entity.code}
+                </Typography>
+              ) : undefined}
+              {entity.mz_code ? (
+                <Typography variant="body2" color="text.secondary">
+                  M-Z Code: {entity.mz_code}
+                </Typography>
+              ) : undefined}
+            </>
           ) : undefined}
         </CardContent>
       </Box>
@@ -104,8 +118,8 @@ function GenericCard({ isLeaderboard, entity }: Props) {
             <Box sx={{ width: medalWidth, height: medalHeight }}>
               <Image
                 src={`/medal_${entity.position}.svg`}
-                layout='fill'
-                alt='Medal corresponding to position'
+                layout="fill"
+                alt="Medal corresponding to position"
               />
             </Box>
           ) : (

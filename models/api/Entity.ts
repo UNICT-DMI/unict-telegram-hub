@@ -22,3 +22,10 @@ export type Entity = Channel | Group | Bot;
 export type EntityWithPosition = Entity & {
   position: number;
 };
+
+export interface GroupsDictionaryValue {
+  suffix: string;
+  teamsCodes: ReadonlyArray<string>;
+}
+
+export type GroupsDictionary = Record<1 | 2 | 3, Record<string, GroupsDictionaryValue>>;
