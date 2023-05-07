@@ -1,4 +1,4 @@
-FROM node:18.12.1
+FROM node:18.16.0
 WORKDIR /next
 COPY package*.json .
 RUN ["yarn", "install"]

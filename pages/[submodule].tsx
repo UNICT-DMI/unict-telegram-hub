@@ -1,7 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { theme } from '.';
@@ -19,13 +18,6 @@ const Hub: NextPage = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
-      <Head>
-        <title>UNICT Telegram Hub</title>
-        <meta name='description' content='UNICT Telegram Hub' />
-        <meta name='viewport' content='initial-scale=1, width=device-width' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
 
       <div className={styles.container}>
         <main className={styles.main}>
