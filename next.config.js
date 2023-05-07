@@ -1,5 +1,3 @@
-const prod = process.env.NODE_ENV === 'production';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -7,9 +5,8 @@ const nextConfig = {
 };
 
 const withPWA = require('next-pwa')({
-  disable: prod ? false : true,
-  dest: 'public',
-  sw: 'service-worker.js'
+  disable: process.env.NODE_ENV === 'production' ? false : true,
+  dest: 'public'
 });
 
 module.exports = withPWA(nextConfig);
