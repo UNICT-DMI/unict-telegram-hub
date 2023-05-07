@@ -3,11 +3,13 @@ import { Entity, EntityWithPosition } from '../../models/api/Entity';
 import Box from '@mui/material/Box';
 import GenericCard from '../Card/Card';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import Offline from '../Offline/Offline';
 import styles from '../../styles/Grid.module.css';
 
 const Grid = ({ submodule, filter }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [entities, setEntities] = useState<Array<EntityWithPosition> | undefined>(undefined);
+  const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
     if (submodule !== '/[submodule]') {
@@ -23,10 +25,15 @@ const Grid = ({ submodule, filter }: Props) => {
               return entityWithPosition;
             })
           );
+
+          setError(undefined);
           setLoading(false);
         })
         .catch((error: Error) => {
-          console.error(`Failed to fetch entities with error: ${error.message}`);
+          setLoading(false);
+
+          console.error(`Failed to fetch entities: ${error.message}`);
+          setError(error);
         });
     }
   }, [submodule]);
@@ -70,7 +77,7 @@ const Grid = ({ submodule, filter }: Props) => {
     );
   }
 
-  return <>{loading ? <LoadingSpinner /> : getFilteredEntities()}</>;
+  return <>{loading ? <LoadingSpinner /> : error ? <Offline /> : getFilteredEntities()}</>;
 };
 
 export default Grid;
