@@ -13,7 +13,7 @@ const groupsNames: Omit<GroupsDictionary, 3> = {
     'Fondamenti di Analisi Dati': { suffix: 'ksHSJBVZ5PIxNDg0', teamsCodes: ['wjbote3'] },
     'Ingegneria dei sistemi distribuiti': { suffix: 'MB3YVAEQY_4zMzBk', teamsCodes: ['g0le51h'] },
     Crittografia: { suffix: 'PKQX0uRHRe83OTA0', teamsCodes: ['hc9v2gu'] },
-    'Analisi Numerica': { suffix: 'xg891RSBurRkYzE0', teamsCodes: ['a02uce2'] },
+    'Analisi Numerica': { suffix: 'xg891RSBurRkYzE0', teamsCodes: ['87fsubo'] },
     'Computer Vision': { suffix: 'diqNm3HZl7RhZTQ0', teamsCodes: ['sf90883'] },
     'Big Data': { suffix: 'w6H7lVHZ1u4yNmI0', teamsCodes: ['zlpjgic'] },
     'Programmazione di sistemi robotici autonomi': {
