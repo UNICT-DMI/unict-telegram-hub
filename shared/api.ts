@@ -2,7 +2,7 @@ import { load } from 'cheerio';
 import { accessSync, constants, mkdirSync, readFile, statSync, writeFile } from 'fs';
 import { get } from 'https';
 import { NextApiResponse } from 'next';
-import { Base, GroupsDictionaryValue } from '../models/api/Entity';
+import { Base, Group, GroupsDictionaryValue } from '../models/api/Entity';
 
 const cachedDataFolderPath = './cachedData';
 
@@ -118,12 +118,6 @@ async function fetchEntitiesData(
   );
 }
 
-function isGroupsDictionaryValue(
-  entity: ReadonlyArray<string | GroupsDictionaryValue>
-): entity is ReadonlyArray<GroupsDictionaryValue> {
-  return (entity as ReadonlyArray<GroupsDictionaryValue>)[0].teamsCodes != undefined;
-}
-
 export function sortData<T>(entitiesData: Array<T>, property: keyof T) {
   entitiesData.sort((a, b) => {
     if (a[property] < b[property]) {
@@ -146,49 +140,52 @@ export function cacheData<T>(path: string, data: ReadonlyArray<T>) {
   });
 }
 
-export function getData<T>(
+export async function getData<T>(
   entitiesType: EntitiesType,
   entities: ReadonlyArray<string | GroupsDictionaryValue>,
-  callback: (
-    entitiesData: Array<BaseWithScore>,
-    res: NextApiResponse<ReadonlyArray<T>>,
-    teamsCodes?: ReadonlyArray<GroupsDictionaryValue['teamsCodes']>
-  ) => void,
+  callback: (entitiesData: Array<BaseWithScore>, res: NextApiResponse<ReadonlyArray<T>>) => void,
   res: NextApiResponse<ReadonlyArray<T>>,
   groupsYear?: string
 ) {
+  const isGroupsDictionaryValue = ['bachelor', 'master'].includes(entitiesType);
+
   const cachedDataPath = `${cachedDataFolderPath}/${entitiesType}${
-    ['bachelor', 'master'].includes(entitiesType) && groupsYear ? '/' + groupsYear : ''
+    isGroupsDictionaryValue && groupsYear ? '/' + groupsYear : ''
   }`;
 
   if (shouldUpdateCache(cachedDataPath)) {
     let entitiesArray: ReadonlyArray<string>;
-    let teamsCodesArray: Array<ReadonlyArray<string>>;
 
-    if (isGroupsDictionaryValue(entities)) {
-      const tmpEntitiesArray: Array<GroupsDictionaryValue['suffix']> = [];
-      teamsCodesArray = [];
-
-      entities.forEach(value => {
-        tmpEntitiesArray.push(value.suffix);
-        teamsCodesArray.push(value.teamsCodes);
-      });
-
-      entitiesArray = tmpEntitiesArray;
+    if (isGroupsDictionaryValue) {
+      entitiesArray = (entities as ReadonlyArray<GroupsDictionaryValue>).map(
+        entity => entity.suffix
+      );
     } else {
       entitiesArray = entities as ReadonlyArray<string>;
     }
 
-    fetchEntitiesData(entitiesType, entitiesArray)
-      .then(entitiesData => {
-        sortData<BaseWithScore>(entitiesData, 'score');
-        cacheData<BaseWithScore>(cachedDataPath, entitiesData);
+    const entitiesData: Array<BaseWithScore> = await fetchEntitiesData(
+      entitiesType,
+      entitiesArray
+    ).catch(() => {
+      log('error', 'Failed fetching the entities data');
+      return [];
+    });
 
-        callback(entitiesData, res, teamsCodesArray);
-      })
-      .catch(() => {
-        log('error', 'Failed fetching the entities data');
+    if (isGroupsDictionaryValue) {
+      const groupsDictionaryValues: ReadonlyArray<GroupsDictionaryValue> =
+        entities as ReadonlyArray<GroupsDictionaryValue>;
+
+      (entitiesData as Array<GroupWithScore>).forEach((entity, index) => {
+        entity.code = groupsDictionaryValues[index].teamsCodes[0];
+        entity.mz_code = groupsDictionaryValues[index].teamsCodes[1];
       });
+    }
+
+    sortData<BaseWithScore>(entitiesData, 'score');
+    cacheData<BaseWithScore>(cachedDataPath, entitiesData);
+
+    callback(entitiesData, res);
   } else {
     log('log', `Returning cached data for: ${entitiesType}`);
 
@@ -198,11 +195,7 @@ export function getData<T>(
         return undefined;
       }
 
-      callback(
-        JSON.parse(data.toString()) as Array<BaseWithScore>,
-        res,
-        isGroupsDictionaryValue(entities) ? entities.map(entity => entity.teamsCodes) : undefined
-      );
+      callback(JSON.parse(data.toString()) as Array<BaseWithScore>, res);
     });
   }
 }
@@ -210,3 +203,5 @@ export function getData<T>(
 type EntitiesType = 'channels' | 'bots' | 'bachelor' | 'master';
 
 export type BaseWithScore = Base & { score?: number };
+
+export type GroupWithScore = BaseWithScore & Omit<Group, 'members'>;

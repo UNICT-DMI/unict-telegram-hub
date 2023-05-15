@@ -22,6 +22,9 @@ function returnBotEntities(
   res.json(toBotEntities(channelEntities));
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<ReadonlyArray<Bot>>) {
-  getData('bots', botsNames, returnBotEntities, res);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ReadonlyArray<Bot>>
+) {
+  await getData('bots', botsNames, returnBotEntities, res);
 }

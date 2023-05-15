@@ -33,7 +33,7 @@ const channelsNames: ReadonlyArray<string> = [
   'IngIndNews',
   'Spotted_DMI',
   'SfottedDIEEI',
-  'sdsarchitetturanews',
+  'sdsarchitetturanews'
 ] as const;
 
 function toChannelEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Channel> {
@@ -55,6 +55,9 @@ function returnChannelEntities(
   res.json(toChannelEntities(channelEntities));
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<ReadonlyArray<Channel>>) {
-  getData('channels', channelsNames, returnChannelEntities, res);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ReadonlyArray<Channel>>
+) {
+  await getData('channels', channelsNames, returnChannelEntities, res);
 }
