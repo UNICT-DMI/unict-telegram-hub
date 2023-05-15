@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Group, GroupsDictionary, GroupsDictionaryValue } from '../../models/api/Entity';
+import { Group, GroupsDictionary } from '../../models/api/Entity';
 import { BaseWithScore, getData } from '../../shared/api';
 
 const groupsNames: Omit<GroupsDictionary, 3> = {
@@ -49,34 +49,22 @@ const groupsNames: Omit<GroupsDictionary, 3> = {
   }
 };
 
-function toGroupEntities(
-  entitiesData: Array<BaseWithScore>,
-  teamsCodes?: ReadonlyArray<GroupsDictionaryValue['teamsCodes']>
-): ReadonlyArray<Group> {
-  return entitiesData.map<Group>((entity, index) => {
+function toGroupEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Group> {
+  return entitiesData.map<Group>(entity => {
     const score = entity.score ?? 0;
     delete entity.score;
 
     const groupEntity: Group = entity as Group;
     groupEntity.members = score;
 
-    if (teamsCodes) {
-      groupEntity.code = teamsCodes[index][0];
-    }
-
     return groupEntity;
   });
 }
 
-function returnGroupEntities(
-  groupEntities: Array<BaseWithScore>,
-  res: NextApiResponse<ReadonlyArray<Group>>,
-  teamsCodes?: ReadonlyArray<GroupsDictionaryValue['teamsCodes']>
-): void {
-  res.json(toGroupEntities(groupEntities, teamsCodes));
-}
-
-export default function handler(req: NextApiRequest, res: NextApiResponse<ReadonlyArray<Group>>) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ReadonlyArray<Group>>
+) {
   const year = (req.query.year as '1' | '2' | undefined) ?? '1';
-  getData('master', Object.values(groupsNames[year]), returnGroupEntities, res, year);
+  res.json(toGroupEntities(await getData('master', Object.values(groupsNames[year]), year)));
 }
