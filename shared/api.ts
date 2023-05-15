@@ -1,7 +1,6 @@
 import { load } from 'cheerio';
-import { accessSync, constants, mkdirSync, readFile, statSync, writeFile } from 'fs';
+import { accessSync, constants, mkdirSync, readFileSync, statSync, writeFile } from 'fs';
 import { get } from 'https';
-import { NextApiResponse } from 'next';
 import { Base, Group, GroupsDictionaryValue } from '../models/api/Entity';
 
 const cachedDataFolderPath = './cachedData';
@@ -140,13 +139,11 @@ export function cacheData<T>(path: string, data: ReadonlyArray<T>) {
   });
 }
 
-export async function getData<T>(
+export async function getData(
   entitiesType: EntitiesType,
   entities: ReadonlyArray<string | GroupsDictionaryValue>,
-  callback: (entitiesData: Array<BaseWithScore>, res: NextApiResponse<ReadonlyArray<T>>) => void,
-  res: NextApiResponse<ReadonlyArray<T>>,
   groupsYear?: string
-) {
+): Promise<Array<BaseWithScore>> {
   const isGroupsDictionaryValue = ['bachelor', 'master'].includes(entitiesType);
 
   const cachedDataPath = `${cachedDataFolderPath}/${entitiesType}${
@@ -185,18 +182,11 @@ export async function getData<T>(
     sortData<BaseWithScore>(entitiesData, 'score');
     cacheData<BaseWithScore>(cachedDataPath, entitiesData);
 
-    callback(entitiesData, res);
+    return entitiesData;
   } else {
     log('log', `Returning cached data for: ${entitiesType}`);
 
-    readFile(cachedDataPath, (error, data) => {
-      if (error) {
-        log('error', error.message);
-        return undefined;
-      }
-
-      callback(JSON.parse(data.toString()) as Array<BaseWithScore>, res);
-    });
+    return JSON.parse(readFileSync(cachedDataPath).toString()) as Array<BaseWithScore>;
   }
 }
 

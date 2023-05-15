@@ -50,7 +50,7 @@ const groupsNames: Omit<GroupsDictionary, 3> = {
 };
 
 function toGroupEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Group> {
-  return entitiesData.map<Group>((entity, index) => {
+  return entitiesData.map<Group>(entity => {
     const score = entity.score ?? 0;
     delete entity.score;
 
@@ -61,17 +61,10 @@ function toGroupEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Grou
   });
 }
 
-function returnGroupEntities(
-  groupEntities: Array<BaseWithScore>,
-  res: NextApiResponse<ReadonlyArray<Group>>
-): void {
-  res.json(toGroupEntities(groupEntities));
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ReadonlyArray<Group>>
 ) {
   const year = (req.query.year as '1' | '2' | undefined) ?? '1';
-  await getData('master', Object.values(groupsNames[year]), returnGroupEntities, res, year);
+  res.json(toGroupEntities(await getData('master', Object.values(groupsNames[year]), year)));
 }

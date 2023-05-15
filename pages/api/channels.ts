@@ -48,16 +48,9 @@ function toChannelEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Ch
   });
 }
 
-function returnChannelEntities(
-  channelEntities: Array<BaseWithScore>,
-  res: NextApiResponse<ReadonlyArray<Channel>>
-): void {
-  res.json(toChannelEntities(channelEntities));
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ReadonlyArray<Channel>>
 ) {
-  await getData('channels', channelsNames, returnChannelEntities, res);
+  res.json(toChannelEntities(await getData('channels', channelsNames)));
 }

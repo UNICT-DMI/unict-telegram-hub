@@ -15,16 +15,9 @@ function toBotEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Bot> {
   });
 }
 
-function returnBotEntities(
-  channelEntities: Array<BaseWithScore>,
-  res: NextApiResponse<ReadonlyArray<Bot>>
-): void {
-  res.json(toBotEntities(channelEntities));
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ReadonlyArray<Bot>>
 ) {
-  await getData('bots', botsNames, returnBotEntities, res);
+  res.json(toBotEntities(await getData('bots', botsNames)));
 }
