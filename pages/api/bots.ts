@@ -6,7 +6,9 @@ const botsNames: ReadonlyArray<string> = [
   'DMI_Bot',
   'Spotted_DMI_bot',
   'MedBot',
-  'ERSUBot'
+  'ERSUBot',
+  'Sfotted_DIEEI_bot',
+  'UNICT_Book_Market_Bot',
 ] as const;
 
 function toBotEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Bot> {
