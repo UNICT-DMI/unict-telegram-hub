@@ -33,7 +33,9 @@ const channelsNames: ReadonlyArray<string> = [
   'IngIndNews',
   'Spotted_DMI',
   'SfottedDIEEI',
-  'sdsarchitetturanews'
+  'sdsarchitetturanews',
+  'albo_unict',
+  'unict_devs',
 ] as const;
 
 function toChannelEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Channel> {
