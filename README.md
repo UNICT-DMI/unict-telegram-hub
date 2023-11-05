@@ -6,11 +6,23 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First make sure that you have corepack installed and enabled:
 
 ```bash
-npm run dev
-# or
+corepack enable
+```
+
+you can find more information here: https://github.com/nodejs/corepack
+
+After that install the dependencies with yarn
+
+```bash
+yarn install
+```
+
+Finally run the dev server
+
+```bash
 yarn dev
 ```
 
