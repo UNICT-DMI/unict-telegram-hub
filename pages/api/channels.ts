@@ -32,7 +32,7 @@ const channelsNames: ReadonlyArray<string> = [
   'IngEleNews',
   'IngIndNews',
   'Spotted_DMI',
-  'SfottedDIEEI',
+  // 'SfottedDIEEI',
   'sdsarchitetturanews',
   'albo_unict',
   'unict_devs',
