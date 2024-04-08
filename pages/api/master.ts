@@ -6,7 +6,7 @@ const groupsNames: Omit<GroupsDictionary, 3> = {
   1: {
     'Multimedia LM - 18': { suffix: 'AAAAAEumJdcVYjQrSQkZhA', teamsCodes: ['28vtwgp'] },
     'Quality Development Chat': { suffix: 'W3UhKxQBI5llMTBk', teamsCodes: [] },
-    'Algoritmi e Complessità': { suffix: 'UFeehWFHAlXlw5Mx', teamsCodes: ['d73lytc'] },
+    'Algoritmi e Complessità': { suffix: 'S3kYCry8HVE2NWI0', teamsCodes: ['d73lytc'] },
     Ottimizzazione: { suffix: 'qMgNPeZexoY0ZTlk', teamsCodes: ['f6olju2'] },
     '[Discussione] Multimedia - LM 18': { suffix: 'AAAAAE5nRXgGkTCJtuOEAA', teamsCodes: [] },
     'Machine Learning': { suffix: 'OTvdQqj2moRkZjY0', teamsCodes: ['j8rls3j'] },
