@@ -1,7 +1,0 @@
-.flexGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px 24px;
-  margin: 16px;
-  justify-content: center;
-}
