@@ -1,17 +1,15 @@
+import { Box } from '@mui/material';
+
 export default function TelegramDashboard() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-      {new Array(10).fill(undefined).map((_, i) => (
-        <div
+    <>
+      {new Array(17).fill(undefined).map((_, i) => (
+        <Box
           key={i}
-          style={{
-            width: '100px',
-            height: '100px',
-            backgroundColor: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${
-              Math.random() * 255
-            })`
-          }}></div>
+          bgcolor={`rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`}
+          height={100}
+        />
       ))}
-    </div>
+    </>
   );
 }

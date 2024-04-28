@@ -18,13 +18,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} root-layout`}>
-        <header className="header">
+        <header className="header padding">
           <Typography variant="h1">UNICT Hub</Typography>
         </header>
         <main className="main">{children}</main>
-        <footer className="footer">
+        <footer className="footer padding">
           <Typography>Made by students for students 💛</Typography>
-          <a href={'https://github.com/UNICT-DMI/unict-hub'}>Github</a>
+          <a rel="noreferrer" href={'https://github.com/UNICT-DMI/unict-hub'}>
+            Github
+          </a>
         </footer>
       </body>
     </html>

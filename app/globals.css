@@ -6,23 +6,6 @@ body {
   overflow: hidden;
 }
 
-.header {
-  grid-area: header;
-}
-
-.main {
-  grid-area: main;
-  overflow-y: auto;
-}
-
-.footer {
-  grid-area: footer;
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-  padding: 8px 16px;
-}
-
 .root-layout {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -31,4 +14,28 @@ body {
     'header header header header header header header header header header header header'
     'main main main main main main main main main main main main'
     'footer footer footer footer footer footer footer footer footer footer footer footer';
+}
+
+.header {
+  grid-area: header;
+  padding: 8px 16px;
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-auto-rows: min-content;
+  overflow-y: auto;
+}
+
+.footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.padding {
+  padding: 8px 16px;
 }
