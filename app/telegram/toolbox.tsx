@@ -13,8 +13,8 @@ export default function Toolbox() {
   };
 
   return (
-    <Box gridColumn="main" position="sticky" top={0} left={0}>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <Box gridColumn="1/-1" position="sticky" top={0} left={0} zIndex={1}>
+      <FormControl sx={{ m: 1, minWidth: 120, zIndex: 1 }}>
         <InputLabel>Category</InputLabel>
         <Select label="Category" value={filter} onChange={handleChange} autoWidth>
           {selections.map(category => (
