@@ -21,7 +21,7 @@ export default function GenericCard({
   const fans = getFans(entity);
 
   return (
-    <Box className={styles.wrapper} sx={{ position: 'relative', m: 1 }}>
+    <Box position="relative">
       <Card className={styles.card}>
         <CardMedia
           className={styles.picture}

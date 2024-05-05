@@ -6,7 +6,8 @@ export default function TelegramDashboard() {
   return (
     <Box
       display="grid"
-      gridTemplateColumns="repeat(auto-fill, minmax(min(25em, 100%), 1fr))">
+      gridTemplateColumns="repeat(auto-fill, minmax(min(25em, 100%), 1fr))"
+      gap={1}>
       <Toolbox />
       {new Array(50).fill(undefined).map((_, i) => (
         <GenericCard
