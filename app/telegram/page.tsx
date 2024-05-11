@@ -24,7 +24,7 @@ export default function TelegramDashboard() {
       <Toolbox setChosenEntityType={fetchData} />
       {data?.map((entity, i) => (
         <GenericCard
-          key={entity.title}
+          key={`${entity.title}${i}`}
           isLeaderboard={true}
           entity={{ ...entity, position: i + 1 }}
         />
