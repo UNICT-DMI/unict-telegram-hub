@@ -1,14 +1,14 @@
-import { entityTypes } from '@/models/api/Entity';
+import { entities } from '@/app/telegram/models';
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
 
 export default function Toolbox({
   setChosenEntityType
-}: Readonly<{ setChosenEntityType: (choice: (typeof entityTypes)[number]) => void }>) {
-  const [filter, setFilter] = useState<(typeof entityTypes)[number]>();
+}: Readonly<{ setChosenEntityType: (choice: (typeof entities)[number]) => void }>) {
+  const [filter, setFilter] = useState<(typeof entities)[number]>();
 
   const onChange = (event: SelectChangeEvent) => {
-    const choice = event.target.value as (typeof entityTypes)[number];
+    const choice = event.target.value as (typeof entities)[number];
     setFilter(choice);
     setChosenEntityType(choice);
   };
@@ -18,9 +18,9 @@ export default function Toolbox({
       <FormControl sx={{ m: 1, minWidth: 120, zIndex: 1 }}>
         <InputLabel>Category</InputLabel>
         <Select label="Category" value={filter} onChange={onChange} autoWidth>
-          {entityTypes.map(category => (
+          {entities.map(category => (
             <MenuItem key={category} value={category}>
-              {category}
+              {`${category.substring(0, 1).toUpperCase()}${category.substring(1)}`}
             </MenuItem>
           ))}
         </Select>

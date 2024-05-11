@@ -1,6 +1,6 @@
 'use client';
 
-import { Entity, entityTypes } from '@/models/api/Entity';
+import { Entity, entities } from '@/app/telegram/models';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 import { loadCards } from './actions';
@@ -10,8 +10,10 @@ import Toolbox from './toolbox';
 export default function TelegramDashboard() {
   let [data, setData] = useState<ReadonlyArray<Entity>>();
 
-  async function fetchData(chosenEntityType: (typeof entityTypes)[number]) {
-    setData(await loadCards(chosenEntityType));
+  async function fetchData(chosenEntityType: (typeof entities)[number]) {
+    console.log(`${window.location.href}/${chosenEntityType}`);
+
+    setData(await loadCards(new URL(`${window.location.href}/${chosenEntityType}`)));
   }
 
   return (

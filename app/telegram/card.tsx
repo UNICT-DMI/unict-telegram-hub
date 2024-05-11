@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
-import { Channel, Entity, EntityWithPosition, Group } from '../../models/api/Entity';
+import { Channel, Entity, EntityWithPosition, Group } from './models';
 
 import styles from './card.module.css';
 

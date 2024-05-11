@@ -1,16 +1,18 @@
 'use server';
 
-import { Entity } from '@/models/api/Entity';
+import { Entity } from '@/app/telegram/models';
 
-export async function loadCards(chosenEntityType: string): Promise<ReadonlyArray<Entity>> {
-  // retrievedItems = await (await fetch('')).json();
+export async function loadCards(url: URL): Promise<ReadonlyArray<Entity>> {
+  console.log(url);
 
-  const r = (Math.random() * 10000).toFixed(0);
+  return await (await fetch(url)).json();
+
+  /* const r = (Math.random() * 10000).toFixed(0);
 
   return new Array<Entity>(50).fill({
     title: `${chosenEntityType} ${r}`,
     description: `Description: ${r}`,
     link: 'http://localhost:3000/telegram',
     subscribers: Math.random() * 1000
-  });
+  }); */
 }

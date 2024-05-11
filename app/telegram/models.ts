@@ -1,4 +1,4 @@
-export const entityTypes = ['Channels', 'Groups', 'Bots'] as const;
+export const entities = ['channels', 'groups', 'bots'] as const;
 
 export interface Base {
   link: string;
