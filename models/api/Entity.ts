@@ -1,3 +1,5 @@
+export const entityTypes = ['Channels', 'Groups', 'Bots'] as const;
+
 export interface Base {
   link: string;
   pictureURL?: string;
