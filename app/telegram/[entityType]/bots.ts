@@ -1,5 +1,5 @@
 import { Bot } from '../models';
-import { BaseWithScore, getData } from './api';
+import { BaseWithScore, getData } from './shared';
 
 const botsNames: ReadonlyArray<string> = [
   'DMI_Bot',

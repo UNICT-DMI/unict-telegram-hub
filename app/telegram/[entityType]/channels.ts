@@ -1,5 +1,5 @@
 import { Channel } from '../models';
-import { BaseWithScore, getData } from './api';
+import { BaseWithScore, getData } from './shared';
 
 const channelsNames: ReadonlyArray<string> = [
   'dminews',

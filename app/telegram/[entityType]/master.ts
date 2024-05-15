@@ -1,5 +1,5 @@
 import { Group, GroupsDictionary } from '../models';
-import { BaseWithScore, getData } from './api';
+import { BaseWithScore, getData } from './shared';
 
 const groupsNames: Omit<GroupsDictionary, 3> = {
   1: {

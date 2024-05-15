@@ -11,7 +11,7 @@ export async function GET(
   {
     params
   }: {
-    params: { entityType: Lowercase<(typeof entities)[number]> };
+    params: { entityType: (typeof entities)[number] };
   }
 ) {
   let response: ReadonlyArray<Base>;

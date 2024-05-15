@@ -11,8 +11,6 @@ export default function TelegramDashboard() {
   let [data, setData] = useState<ReadonlyArray<Entity>>();
 
   async function fetchData(chosenEntityType: (typeof entities)[number]) {
-    console.log(`${window.location.href}/${chosenEntityType}`);
-
     setData(await loadCards(new URL(`${window.location.href}/${chosenEntityType}`)));
   }
 
