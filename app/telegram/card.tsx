@@ -9,8 +9,6 @@ import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import { Channel, Entity, EntityWithPosition, Group } from './models';
 
-import styles from './card.module.css';
-
 export default function GenericCard({
   isLeaderboard,
   entity
@@ -22,13 +20,23 @@ export default function GenericCard({
 
   return (
     <Box position="relative">
-      <Card className={styles.card}>
+      <Card
+        sx={{
+          container: 'card / inline-size',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '8px',
+          height: 'calc(100% - 16px)'
+        }}>
         <CardMedia
-          className={styles.picture}
           component="img"
           src={entity.pictureURL ?? '/telegram.svg'}
+          sx={{
+            width: '30cqw',
+            alignSelf: 'center'
+          }}
         />
-        <CardContent className={styles.content}>
+        <CardContent>
           <Link href={entity.link} target="_blank" rel="noreferrer" variant="h5" underline="hover">
             {entity.title}
           </Link>
