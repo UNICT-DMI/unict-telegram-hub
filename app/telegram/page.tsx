@@ -1,17 +1,20 @@
 'use client';
 
 import { Entity, entities } from '@/app/telegram/models';
-import { Box } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
 import { useState } from 'react';
 import { loadCards } from './actions';
 import GenericCard from './card';
 import Toolbox from './toolbox';
 
 export default function TelegramDashboard() {
+  const [loading, setLoading] = useState<boolean>(false);
   let [data, setData] = useState<ReadonlyArray<Entity>>();
 
   async function fetchData(chosenEntityType: (typeof entities)[number]) {
+    setLoading(true);
     setData(await loadCards(new URL(`${window.location.href}/${chosenEntityType}`)));
+    setLoading(false);
   }
 
   return (
@@ -20,13 +23,19 @@ export default function TelegramDashboard() {
       gridTemplateColumns="repeat(auto-fill, minmax(min(25em, 100%), 1fr))"
       gap={1}>
       <Toolbox setChosenEntityType={fetchData} />
-      {data?.map((entity, i) => (
-        <GenericCard
-          key={`${entity.title}${i}`}
-          isLeaderboard={true}
-          entity={{ ...entity, position: i + 1 }}
-        />
-      ))}
+      {loading
+        ? new Array(20)
+            .fill(undefined)
+            .map((_, i) => (
+              <Skeleton key={i} variant="rectangular" height="160px" animation="pulse" />
+            ))
+        : data?.map((entity, i) => (
+            <GenericCard
+              key={`${entity.title}${i}`}
+              isLeaderboard={true}
+              entity={{ ...entity, position: i + 1 }}
+            />
+          ))}
     </Box>
   );
 }
