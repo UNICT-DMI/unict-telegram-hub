@@ -1,4 +1,4 @@
-import { Channel } from '../models';
+import { Channel } from './models';
 import { BaseWithScore, getData } from './shared';
 
 const channelsNames: ReadonlyArray<string> = [

@@ -1,4 +1,4 @@
-import { Group, GroupsDictionary } from '../models';
+import { Group, GroupsDictionary } from './models';
 import { BaseWithScore, getData } from './shared';
 
 const groupsNames: Omit<GroupsDictionary, 3> = {

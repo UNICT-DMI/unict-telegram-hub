@@ -13,7 +13,7 @@ export default function TelegramDashboard() {
 
   async function fetchData(chosenEntityType: (typeof entities)[number]) {
     setLoading(true);
-    setData(await loadCards(new URL(`${window.location.href}/${chosenEntityType}`)));
+    setData(await loadCards(chosenEntityType));
     setLoading(false);
   }
 

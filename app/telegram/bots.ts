@@ -1,4 +1,4 @@
-import { Bot } from '../models';
+import { Bot } from './models';
 import { BaseWithScore, getData } from './shared';
 
 const botsNames: ReadonlyArray<string> = [

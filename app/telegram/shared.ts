@@ -1,7 +1,7 @@
 import { load } from 'cheerio';
 import { accessSync, constants, mkdirSync, readFileSync, statSync, writeFile } from 'fs';
 import { get } from 'https';
-import { Base, Group, GroupsDictionaryValue } from '../models';
+import { Base, Group, GroupsDictionaryValue } from './models';
 
 const cachedDataFolderPath = './cachedData';
 
