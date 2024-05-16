@@ -72,7 +72,16 @@ export default function GenericCard({
               />
             </Box>
           ) : (
-            <Box>{entity.position}</Box>
+            <Box
+              width="1.8em"
+              height="1.8em"
+              borderRadius="50%"
+              bgcolor="lightblue"
+              display="flex"
+              justifyContent="center"
+              alignItems="center">
+              {entity.position}
+            </Box>
           )}
         </Box>
       ) : undefined}

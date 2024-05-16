@@ -21,7 +21,8 @@ export default function TelegramDashboard() {
     <Box
       display="grid"
       gridTemplateColumns="repeat(auto-fill, minmax(min(25em, 100%), 1fr))"
-      gap={1}>
+      gap={2}
+      margin={1}>
       <Toolbox setChosenEntityType={fetchData} />
       {loading
         ? new Array(20)
