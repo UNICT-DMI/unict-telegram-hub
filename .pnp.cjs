@@ -26,9 +26,11 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@emotion/cache", "npm:11.11.0"],\
           ["@emotion/react", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:11.11.4"],\
           ["@emotion/styled", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:11.11.5"],\
           ["@mui/material", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:5.15.17"],\
+          ["@mui/material-nextjs", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:5.15.11"],\
           ["@types/node", "npm:20.12.11"],\
           ["@types/react", "npm:18.3.2"],\
           ["@types/react-dom", "npm:18.3.0"],\
@@ -566,6 +568,45 @@ const RAW_RUNTIME_STATE =
           "@types/react-dom",\
           "@types/react",\
           "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@mui/material-nextjs", [\
+      ["npm:5.15.11", {\
+        "packageLocation": "../../../C:/Users/loren/AppData/Local/Yarn/Berry/cache/@mui-material-nextjs-npm-5.15.11-c1c7f34dd3-10c0.zip/node_modules/@mui/material-nextjs/",\
+        "packageDependencies": [\
+          ["@mui/material-nextjs", "npm:5.15.11"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:5.15.11", {\
+        "packageLocation": "./.yarn/__virtual__/@mui-material-nextjs-virtual-4b3b20f974/4/C:/Users/loren/AppData/Local/Yarn/Berry/cache/@mui-material-nextjs-npm-5.15.11-c1c7f34dd3-10c0.zip/node_modules/@mui/material-nextjs/",\
+        "packageDependencies": [\
+          ["@mui/material-nextjs", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:5.15.11"],\
+          ["@babel/runtime", "npm:7.24.5"],\
+          ["@emotion/cache", "npm:11.11.0"],\
+          ["@emotion/server", null],\
+          ["@mui/material", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:5.15.17"],\
+          ["@types/emotion__cache", null],\
+          ["@types/emotion__server", null],\
+          ["@types/mui__material", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:18.3.2"],\
+          ["next", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:14.2.2"],\
+          ["react", "npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/cache",\
+          "@emotion/server",\
+          "@mui/material",\
+          "@types/emotion__cache",\
+          "@types/emotion__server",\
+          "@types/mui__material",\
+          "@types/next",\
+          "@types/react",\
+          "next",\
           "react"\
         ],\
         "linkType": "HARD"\
@@ -4607,9 +4648,11 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["unict-hub", "workspace:."],\
+          ["@emotion/cache", "npm:11.11.0"],\
           ["@emotion/react", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:11.11.4"],\
           ["@emotion/styled", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:11.11.5"],\
           ["@mui/material", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:5.15.17"],\
+          ["@mui/material-nextjs", "virtual:34aa768fed77efb107b547c78151953b1e9bb35b811ea0fa40f3cda187958bda3b40f6d826d1200d3f777242dc2412a50d3ba43ca774938017242b17eae3f1d0#npm:5.15.11"],\
           ["@types/node", "npm:20.12.11"],\
           ["@types/react", "npm:18.3.2"],\
           ["@types/react-dom", "npm:18.3.0"],\

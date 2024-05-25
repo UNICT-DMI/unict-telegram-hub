@@ -9,7 +9,7 @@ import Toolbox from './toolbox';
 
 export default function TelegramDashboard() {
   const [loading, setLoading] = useState<boolean>(false);
-  let [data, setData] = useState<ReadonlyArray<Entity>>();
+  const [data, setData] = useState<ReadonlyArray<Entity>>();
 
   async function fetchData(chosenEntityType: (typeof entities)[number]) {
     setLoading(true);

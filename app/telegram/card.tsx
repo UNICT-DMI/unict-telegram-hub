@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -16,6 +17,7 @@ export default function GenericCard({
   isLeaderboard: boolean;
   entity: EntityWithPosition;
 }>) {
+  const theme = useTheme();
   const fans = getFans(entity);
 
   return (
@@ -26,7 +28,7 @@ export default function GenericCard({
           display: 'flex',
           alignItems: 'center',
           padding: '8px',
-          height: 'calc(100% - 16px)'
+          height: '100%'
         }}>
         <CardMedia
           component="img"
@@ -37,34 +39,46 @@ export default function GenericCard({
           }}
         />
         <CardContent>
-          <Link href={entity.link} target="_blank" rel="noreferrer" variant="h5" underline="hover">
+          <Link
+            href={entity.link}
+            target="_blank"
+            rel="noreferrer"
+            variant="h1"
+            fontSize="1.5em"
+            underline="hover">
             {entity.title}
           </Link>
-          {entity.description !== undefined ? (
-            <Typography variant="body2">{entity.description}</Typography>
-          ) : undefined}
-          {fans !== undefined ? <Typography variant="body2">{fans}</Typography> : undefined}
-          {isGroup(entity) ? (
+          {entity.description && <Typography variant="body2">{entity.description}</Typography>}
+          {fans && (
+            <Typography variant="body2" color={theme.palette.secondary.main}>
+              {fans}
+            </Typography>
+          )}
+          {isGroup(entity) && (
             <>
-              {entity.code ? (
-                <Typography variant="body2">Code: {entity.code}</Typography>
-              ) : undefined}
-              {entity.mz_code ? (
-                <Typography variant="body2">M-Z Code: {entity.mz_code}</Typography>
-              ) : undefined}
+              {entity.code && (
+                <Typography variant="body2" color={theme.palette.secondary.main}>
+                  Code: {entity.code}
+                </Typography>
+              )}
+              {entity.mz_code && (
+                <Typography variant="body2" color={theme.palette.secondary.main}>
+                  M-Z Code: {entity.mz_code}
+                </Typography>
+              )}
             </>
-          ) : undefined}
+          )}
         </CardContent>
       </Card>
-      {isLeaderboard ? (
+      {isLeaderboard && (
         <Box
           sx={{
             position: 'absolute',
-            top: '10px',
-            right: '10px'
+            top: 4,
+            right: 4
           }}>
           {entity.position <= 3 ? (
-            <Box sx={{ width: 20, height: 30 }}>
+            <Box sx={{ width: leaderboardPositionSize, height: leaderboardPositionSize }}>
               <Image
                 src={`/medal_${entity.position}.svg`}
                 layout="fill"
@@ -73,18 +87,19 @@ export default function GenericCard({
             </Box>
           ) : (
             <Box
-              width="1.8em"
-              height="1.8em"
-              borderRadius="50%"
-              bgcolor="lightblue"
+              width={leaderboardPositionSize}
+              height={leaderboardPositionSize}
               display="flex"
               justifyContent="center"
-              alignItems="center">
+              alignItems="center"
+              borderRadius="50%"
+              color={theme.palette.secondary.contrastText}
+              bgcolor={theme.palette.secondary.light}>
               {entity.position}
             </Box>
           )}
         </Box>
-      ) : undefined}
+      )}
     </Box>
   );
 }
@@ -107,3 +122,5 @@ function getFans(entity: Entity): undefined | string {
 
   return undefined;
 }
+
+const leaderboardPositionSize = '1.8em';
