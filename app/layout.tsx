@@ -3,6 +3,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import SearchConsumer from './searchConsumer';
 import theme from './theme';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,12 +24,9 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <header className="header">
-              <Typography variant="h1">UNICT Hub</Typography>
-            </header>
-            <main className="main">{children}</main>
+            <SearchConsumer>{children}</SearchConsumer>
             <footer className="footer">
-              <Box display="flex" justifyContent="space-between">
+              <Box display="flex" justifyContent="space-between" marginInline={1}>
                 <Typography>Made by students for students 💛</Typography>
                 <a rel="noreferrer" href={'https://github.com/UNICT-DMI/unict-hub'}>
                   Github

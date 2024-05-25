@@ -2,7 +2,8 @@
 
 import { Entity, entities } from '@/app/telegram/models';
 import { Box, Skeleton, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { GlobalSearchContext } from '../searchConsumer';
 import { loadCards } from './actions';
 import GenericCard from './card';
 import Toolbox from './toolbox';
@@ -13,6 +14,7 @@ export default function TelegramDashboard() {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<ReadonlyArray<Entity>>();
   const theme = useTheme();
+  const globalSearch = useContext(GlobalSearchContext);
 
   useEffect(() => {
     fetchData(defaultEntityType);
@@ -24,6 +26,28 @@ export default function TelegramDashboard() {
     setLoading(false);
   }
 
+  function listEntities() {
+    if (loading) {
+      return new Array(20)
+        .fill(undefined)
+        .map((_, i) => <Skeleton key={i} variant="rectangular" height="160px" animation="pulse" />);
+    }
+
+    if (data !== undefined) {
+      return data.map(
+        (entity, i) =>
+          (globalSearch.length === 0 ||
+            entity.title.toLowerCase().includes(globalSearch.toLowerCase())) && (
+            <GenericCard
+              key={`${entity.title}${i}`}
+              isLeaderboard={globalSearch.length === 0}
+              entity={{ ...entity, position: i + 1 }}
+            />
+          )
+      );
+    }
+  }
+
   return (
     <>
       <Toolbox defaultEntityType={defaultEntityType} setChosenEntityType={fetchData} />
@@ -33,19 +57,7 @@ export default function TelegramDashboard() {
         gap={2}
         margin={1}
         bgcolor={theme.palette.background.default}>
-        {loading
-          ? new Array(20)
-              .fill(undefined)
-              .map((_, i) => (
-                <Skeleton key={i} variant="rectangular" height="160px" animation="pulse" />
-              ))
-          : data?.map((entity, i) => (
-              <GenericCard
-                key={`${entity.title}${i}`}
-                isLeaderboard={true}
-                entity={{ ...entity, position: i + 1 }}
-              />
-            ))}
+        {listEntities()}
       </Box>
     </>
   );
