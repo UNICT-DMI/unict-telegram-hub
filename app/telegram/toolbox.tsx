@@ -1,11 +1,24 @@
 import { entities } from '@/app/telegram/models';
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  useTheme
+} from '@mui/material';
 import { useState } from 'react';
 
 export default function Toolbox({
+  defaultEntityType,
   setChosenEntityType
-}: Readonly<{ setChosenEntityType: (choice: (typeof entities)[number]) => void }>) {
-  const [filter, setFilter] = useState<(typeof entities)[number]>();
+}: Readonly<{
+  defaultEntityType: (typeof entities)[number];
+  setChosenEntityType: (choice: (typeof entities)[number]) => void;
+}>) {
+  const [filter, setFilter] = useState<(typeof entities)[number]>(defaultEntityType);
+  const theme = useTheme();
 
   const onChange = (event: SelectChangeEvent) => {
     const choice = event.target.value as (typeof entities)[number];
@@ -14,7 +27,13 @@ export default function Toolbox({
   };
 
   return (
-    <Box gridColumn="1/-1" position="sticky" top={0} left={0} zIndex={1}>
+    <Box
+      position="sticky"
+      top={0}
+      left={0}
+      zIndex={1}
+      bgcolor={theme.palette.background.default}
+      boxShadow={`0 2px ${theme.palette.divider}`}>
       <FormControl sx={{ m: 1, minWidth: 120, zIndex: 1 }}>
         <InputLabel>Category</InputLabel>
         <Select label="Category" value={filter} onChange={onChange} autoWidth>
