@@ -16,7 +16,7 @@ export default function SearchConsumer({
     <GlobalSearchContext.Provider value={searchValue}>
       <header className="header">
         <Box display="flex" justifyContent="space-between" alignItems="center" marginRight={1}>
-          <Typography variant="h1">UNICT Hub</Typography>
+          <Typography variant="h1">UNICT Telegram Hub</Typography>
           <TextField
             label="Search"
             onChange={input => {

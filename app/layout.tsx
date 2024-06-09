@@ -9,8 +9,8 @@ import theme from './theme';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'UNICT Hub',
-  description: 'UNICT Hub'
+  title: 'UNICT Telegram Hub',
+  description: 'The platform to find out all the telegram links associated to UNICT'
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
             <footer className="footer">
               <Box display="flex" justifyContent="space-between" marginInline={1}>
                 <Typography>Made by students for students 💛</Typography>
-                <a rel="noreferrer" href={'https://github.com/UNICT-DMI/unict-hub'}>
+                <a rel="noreferrer" href={'https://github.com/UNICT-DMI/unict-telegram-hub'}>
                   Github
                 </a>
               </Box>
