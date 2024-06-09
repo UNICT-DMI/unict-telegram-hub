@@ -13,6 +13,11 @@ const theme = createTheme({
     error: {
       main: '#de5935'
     }
+  },
+  typography: {
+    h1: {
+      fontSize: '3rem'
+    }
   }
 });
 

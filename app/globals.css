@@ -1,8 +1,10 @@
 html,
 body {
+  max-width: 1600px;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  margin-inline: auto;
   overflow: hidden;
 }
 
