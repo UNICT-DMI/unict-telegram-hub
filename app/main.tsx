@@ -39,12 +39,14 @@ export default function Main({
         <header className="header">
           <Box
             display="flex"
-            justifyContent="space-between"
             alignItems="center"
             margin={1}
-            marginLeft={0.5}>
+            marginLeft={0.5}
+            gap={1}
+            justifyContent="space-between"
+            flexWrap="wrap">
             <Typography variant="h1">UNICT Telegram Hub</Typography>
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" gap={1} flexWrap="wrap">
               <CategorySelector
                 defaultEntityType={defaultCategory}
                 onChange={input => {

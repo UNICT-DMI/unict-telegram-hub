@@ -18,7 +18,7 @@ export default function CategorySelector({
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 120, zIndex: 1 }}>
+    <FormControl sx={{ minWidth: 120 }}>
       <InputLabel>Category</InputLabel>
       <Select label="Category" value={filter} onChange={onChangeInternal} autoWidth>
         {entities.map(category => (
