@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, TextField, Typography } from '@mui/material';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const GlobalSearchContext = createContext<string>('');
 
@@ -11,6 +11,21 @@ export default function SearchConsumer({
   children: React.ReactNode;
 }>) {
   const [searchValue, setSearchValue] = useState<string>('');
+
+  useEffect(() => {
+    const eventType = 'keydown';
+    const eventListener = ({ key }: KeyboardEvent) => {
+      if (key === 'Escape') {
+        setSearchValue('');
+      }
+    };
+
+    addEventListener(eventType, eventListener);
+
+    return () => {
+      removeEventListener('keydown', eventListener);
+    };
+  }, []);
 
   return (
     <GlobalSearchContext.Provider value={searchValue}>
@@ -24,6 +39,7 @@ export default function SearchConsumer({
           <Typography variant="h1">UNICT Telegram Hub</Typography>
           <TextField
             label="Search"
+            value={searchValue}
             onChange={input => {
               setSearchValue(input.target.value);
             }}
