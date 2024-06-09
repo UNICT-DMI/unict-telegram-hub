@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import './globals.css';
-import SearchConsumer from './searchConsumer';
+import Main from './main';
 import theme from './theme';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -25,7 +25,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <SearchConsumer>{children}</SearchConsumer>
+            <Main>{children}</Main>
             <footer className="footer">
               <Box display="flex" justifyContent="space-between" margin={0.5} marginInline={1}>
                 <Typography>Made by students for students 💛</Typography>

@@ -1,6 +1,6 @@
 'use server';
 
-import { Entity, entities } from '@/app/telegram/models';
+import { Entity, entities } from '@/app/models';
 import getBachelorGroups from './bachelor';
 import getBots from './bots';
 import getChannels from './channels';
