@@ -10,6 +10,9 @@ import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import { Channel, Entity, EntityWithPosition, Group } from './models';
 
+const leaderboardTop3PositionSize = '1.8em';
+const leaderboardPositionSize = '1.5em';
+
 export default function GenericCard({
   isLeaderboard,
   entity
@@ -78,7 +81,7 @@ export default function GenericCard({
             right: 4
           }}>
           {entity.position <= 3 ? (
-            <Box sx={{ width: leaderboardPositionSize, height: leaderboardPositionSize }}>
+            <Box width={leaderboardTop3PositionSize} height={leaderboardTop3PositionSize}>
               <Image
                 src={`/medal_${entity.position}.svg`}
                 layout="fill"
@@ -122,5 +125,3 @@ function getFans(entity: Entity): undefined | string {
 
   return undefined;
 }
-
-const leaderboardPositionSize = '1.8em';
