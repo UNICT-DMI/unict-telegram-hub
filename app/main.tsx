@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, TextField, Tooltip, Typography, useTheme } from '@mui/material';
 import { createContext, useEffect, useState } from 'react';
 import CategorySelector from './categorySelector';
 import { entities } from './models';
@@ -17,6 +17,7 @@ export default function Main({
 }>) {
   const [category, setCategory] = useState<(typeof entities)[number]>(defaultCategory);
   const [searchValue, setSearchValue] = useState<string>('');
+  const theme = useTheme();
 
   useEffect(() => {
     const eventType = 'keydown';
@@ -36,34 +37,39 @@ export default function Main({
   return (
     <CategoryContext.Provider value={category}>
       <SearchContext.Provider value={searchValue}>
-        <header className="header">
-          <Box
-            display="flex"
-            alignItems="center"
-            margin={1}
-            marginLeft={0.5}
-            gap={1}
-            justifyContent="space-between"
-            flexWrap="wrap">
+        <Box
+          display="flex"
+          alignItems="center"
+          padding={2}
+          paddingInline={0.5}
+          paddingRight={1}
+          gap={1}
+          justifyContent="space-between"
+          flexWrap="wrap"
+          position="sticky"
+          top={0}
+          zIndex={1}
+          bgcolor={theme.palette.background.default}>
+          <Tooltip title="Made by students for students 💛" placement="right">
             <Typography variant="h1">UNICT Telegram Hub</Typography>
-            <Box display="flex" alignItems="center" gap={1} flexWrap="wrap">
-              <CategorySelector
-                defaultEntityType={defaultCategory}
-                onChange={input => {
-                  setCategory(input);
-                }}
-              />
-              <TextField
-                label="Search"
-                value={searchValue}
-                onChange={input => {
-                  setSearchValue(input.target.value);
-                }}
-              />
-            </Box>
+          </Tooltip>
+          <Box display="flex" alignItems="center" gap={1} flexWrap="wrap">
+            <CategorySelector
+              defaultEntityType={defaultCategory}
+              onChange={input => {
+                setCategory(input);
+              }}
+            />
+            <TextField
+              label="Search"
+              value={searchValue}
+              onChange={input => {
+                setSearchValue(input.target.value);
+              }}
+            />
           </Box>
-        </header>
-        <main className="main">{children}</main>
+        </Box>
+        <main>{children}</main>
       </SearchContext.Provider>
     </CategoryContext.Provider>
   );
