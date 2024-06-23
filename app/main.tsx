@@ -51,7 +51,9 @@ export default function Main({
           zIndex={1}
           bgcolor={theme.palette.background.default}>
           <Tooltip title="Made by students for students 💛" placement="right">
-            <Typography variant="h1">UNICT Telegram Hub</Typography>
+            <Typography variant="h1" color={theme.palette.primary.main}>
+              UNICT Telegram Hub
+            </Typography>
           </Tooltip>
           <Box display="flex" alignItems="center" gap={1} flexWrap="wrap">
             <CategorySelector
