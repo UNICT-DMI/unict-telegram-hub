@@ -1,0 +1,6 @@
+Dockerfile
+.dockerignore
+.git
+.yarn
+.vscode
+.next
