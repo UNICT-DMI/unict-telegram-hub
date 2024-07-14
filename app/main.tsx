@@ -6,9 +6,10 @@ import CategorySelector from './categorySelector';
 import { entities } from './models';
 
 const defaultCategory: (typeof entities)[number] = 'channels';
+export const defaultSearchValue: string = '';
 
 export const CategoryContext = createContext<(typeof entities)[number]>(defaultCategory);
-export const SearchContext = createContext<string>('');
+export const SearchContext = createContext<string>(defaultSearchValue);
 
 export default function Main({
   children
