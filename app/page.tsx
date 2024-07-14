@@ -15,6 +15,7 @@ export default function TelegramDashboard() {
   const category = useContext(CategoryContext);
   const searchValue = useContext(SearchContext);
 
+  const debouncedLoading = useDebounce(loading, loading, 500);
   const debouncedSearchValue = useDebounce(defaultSearchValue, searchValue, 500);
 
   const fetchData = useCallback(
@@ -31,7 +32,7 @@ export default function TelegramDashboard() {
   }, [fetchData, category]);
 
   const cards = useMemo(() => {
-    if (loading) {
+    if (debouncedLoading) {
       return new Array(20)
         .fill(undefined)
         .map((_, i) => <Skeleton key={i} variant="rectangular" height="160px" animation="pulse" />);
@@ -48,7 +49,7 @@ export default function TelegramDashboard() {
           />
         )
     );
-  }, [loading, data, debouncedSearchValue]);
+  }, [debouncedLoading, data, debouncedSearchValue]);
 
   if (cards.length > 0) {
     return (
