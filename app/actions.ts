@@ -7,9 +7,10 @@ import getChannels from './channels';
 import getMasterGroups from './master';
 
 export async function loadCards(
-  chosenEntityType: (typeof entities)[number]
-): Promise<undefined | ReadonlyArray<Entity>> {
-  let newData: undefined | ReadonlyArray<Entity>;
+  chosenEntityType: (typeof entities)[number],
+  filter: string
+): Promise<ReadonlyArray<Entity>> {
+  let newData: ReadonlyArray<Entity>;
 
   switch (chosenEntityType) {
     case 'channels':
@@ -22,8 +23,8 @@ export async function loadCards(
       newData = await getBots();
       break;
     default:
-      newData = undefined;
+      newData = [];
   }
 
-  return newData;
+  return newData.filter(entity => entity.title.toLowerCase().includes(filter.toLowerCase()));
 }
