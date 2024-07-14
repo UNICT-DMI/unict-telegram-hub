@@ -42,13 +42,7 @@ export default function GenericCard({
           }}
         />
         <CardContent>
-          <Link
-            href={entity.link}
-            target="_blank"
-            rel="noreferrer"
-            variant="h1"
-            fontSize="1.5em"
-            underline="hover">
+          <Link href={entity.link} target="_blank" rel="noreferrer" variant="h1" fontSize="1.5em">
             {entity.title}
           </Link>
           {entity.description && <Typography variant="body2">{entity.description}</Typography>}
