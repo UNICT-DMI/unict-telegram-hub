@@ -15,7 +15,7 @@ export default function TelegramDashboard() {
   const category = useContext(CategoryContext);
   const searchValue = useContext(SearchContext);
 
-  const debouncedLoading = useDebounce(loading, loading, 500);
+  const debouncedLoading = useDebounce(loading, loading, 750);
   const debouncedSearchValue = useDebounce(defaultSearchValue, searchValue, 500);
 
   const fetchData = useCallback(
