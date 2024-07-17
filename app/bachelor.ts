@@ -41,10 +41,6 @@ export const groupsNames: Omit<GroupsDictionary, GroupsYear.AllYears> = {
       teamsCodes: ['jm6xvd6', '5llo7w4']
     },
     'BASI DI DATI': { suffix: 'CBrlIRtpLNU_A2KwNmwVhg', teamsCodes: ['zcndn3g', 'cp6ryjr'] },
-    '[Discussione] Interazione e Multimedia L-31': {
-      suffix: 'BKvM41e9Tg7uTwz8kHj-wQ',
-      teamsCodes: ['1vd4wnf', 'twrmvmm']
-    },
     'ELEMENTI DI ANALISI MATEMATICA 2': {
       suffix: 'CBrlIVTJ76lA5HGYfjJtcg',
       teamsCodes: ['63og1li', '0wdw57b']
