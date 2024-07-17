@@ -9,6 +9,10 @@ function log(type: 'log' | 'warn' | 'error', value: unknown) {
   console[type](value);
 }
 
+function isGroupEntitiesType(entitiesType: EntitiesType) {
+  return ['groups', 'bachelor', 'master'].includes(entitiesType);
+}
+
 function shouldUpdateCache(cachedDataPath: string) {
   let shouldUpdate = false;
 
@@ -111,7 +115,7 @@ async function fetchEntitiesData(
     entities.map(suffix =>
       fetchData(
         entitiesType,
-        `https://t.me/${['bachelor', 'master'].includes(entitiesType) ? 'joinchat/' : ''}${suffix}`
+        `https://t.me/${isGroupEntitiesType(entitiesType) ? 'joinchat/' : ''}${suffix}`
       )
     )
   );
@@ -144,16 +148,16 @@ export async function getData(
   entities: ReadonlyArray<string | GroupsDictionaryValue>,
   groupsYear?: string
 ): Promise<Array<BaseWithScore>> {
-  const isGroupsDictionaryValue = ['bachelor', 'master'].includes(entitiesType);
+  const isGroupEntitiesTypeResult = isGroupEntitiesType(entitiesType);
 
   const cachedDataPath = `${cachedDataFolderPath}/${entitiesType}${
-    isGroupsDictionaryValue && groupsYear ? '/' + groupsYear : ''
+    isGroupEntitiesTypeResult && groupsYear ? '/' + groupsYear : ''
   }`;
 
   if (shouldUpdateCache(cachedDataPath)) {
     let entitiesArray: ReadonlyArray<string>;
 
-    if (isGroupsDictionaryValue) {
+    if (isGroupEntitiesTypeResult) {
       entitiesArray = (entities as ReadonlyArray<GroupsDictionaryValue>).map(
         entity => entity.suffix
       );
@@ -169,9 +173,8 @@ export async function getData(
       return [];
     });
 
-    if (isGroupsDictionaryValue) {
-      const groupsDictionaryValues: ReadonlyArray<GroupsDictionaryValue> =
-        entities as ReadonlyArray<GroupsDictionaryValue>;
+    if (isGroupEntitiesTypeResult) {
+      const groupsDictionaryValues = entities as ReadonlyArray<GroupsDictionaryValue>;
 
       (entitiesData as Array<GroupWithScore>).forEach((entity, index) => {
         entity.code = groupsDictionaryValues[index].teamsCodes[0];
@@ -190,7 +193,7 @@ export async function getData(
   }
 }
 
-type EntitiesType = 'channels' | 'bots' | 'bachelor' | 'master';
+type EntitiesType = 'channels' | 'bots' | 'groups' | 'bachelor' | 'master';
 
 export type BaseWithScore = Base & { score?: number };
 

@@ -30,4 +30,14 @@ export interface GroupsDictionaryValue {
   teamsCodes: ReadonlyArray<string>;
 }
 
-export type GroupsDictionary = Record<1 | 2 | 3, Record<string, GroupsDictionaryValue>>;
+export enum GroupsYear {
+  AllYears,
+  First,
+  Second,
+  Third
+}
+
+export type GroupsDictionary = Record<
+  GroupsYear.AllYears | GroupsYear.First | GroupsYear.Second | GroupsYear.Third,
+  Record<string, GroupsDictionaryValue>
+>;

@@ -1,7 +1,8 @@
-import { Group, GroupsDictionary } from './models';
-import { BaseWithScore, getData } from './shared';
+import { toGroupEntities } from './groups';
+import { GroupsDictionary, GroupsYear } from './models';
+import { getData } from './shared';
 
-const groupsNames: Omit<GroupsDictionary, 3> = {
+export const groupsNames: Omit<GroupsDictionary, GroupsYear.AllYears | GroupsYear.Third> = {
   1: {
     'Multimedia LM - 18': { suffix: 'AAAAAEumJdcVYjQrSQkZhA', teamsCodes: ['28vtwgp'] },
     'Quality Development Chat': { suffix: 'W3UhKxQBI5llMTBk', teamsCodes: [] },
@@ -48,19 +49,7 @@ const groupsNames: Omit<GroupsDictionary, 3> = {
   }
 };
 
-function toGroupEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Group> {
-  return entitiesData.map<Group>(entity => {
-    const score = entity.score ?? 0;
-    delete entity.score;
-
-    const groupEntity: Group = entity as Group;
-    groupEntity.members = score;
-
-    return groupEntity;
-  });
-}
-
 export default async function getMasterGroups() {
-  const allYearsGroupNames = { ...groupsNames['1'], ...groupsNames['2'] };
+  const allYearsGroupNames = { ...groupsNames[1], ...groupsNames[2] };
   return toGroupEntities(await getData('master', Object.values(allYearsGroupNames), '123'));
 }

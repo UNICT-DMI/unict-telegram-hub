@@ -1,7 +1,8 @@
-import { Group, GroupsDictionary } from './models';
-import { BaseWithScore, getData } from './shared';
+import { toGroupEntities } from './groups';
+import { GroupsDictionary, GroupsYear } from './models';
+import { getData } from './shared';
 
-const groupsNames: GroupsDictionary = {
+export const groupsNames: Omit<GroupsDictionary, GroupsYear.AllYears> = {
   1: {
     'PROGRAMMAZIONE I E LABORATORIO': {
       suffix: 'CBrlIVEAFB-nRjAvEnDdkw',
@@ -84,19 +85,7 @@ const groupsNames: GroupsDictionary = {
   }
 };
 
-function toGroupEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Group> {
-  return entitiesData.map<Group>(entity => {
-    const score = entity.score ?? 0;
-    delete entity.score;
-
-    const groupEntity: Group = entity as Group;
-    groupEntity.members = score;
-
-    return groupEntity;
-  });
-}
-
 export default async function getBachelorGroups() {
-  const allYearsGroupNames = { ...groupsNames['1'], ...groupsNames['2'], ...groupsNames['3'] };
+  const allYearsGroupNames = { ...groupsNames[1], ...groupsNames[2], ...groupsNames[3] };
   return toGroupEntities(await getData('bachelor', Object.values(allYearsGroupNames), '123'));
 }

@@ -1,10 +1,9 @@
 'use server';
 
 import { Entity, entities } from '@/app/models';
-import getBachelorGroups from './bachelor';
 import getBots from './bots';
 import getChannels from './channels';
-import getMasterGroups from './master';
+import getGroups from './groups';
 
 export async function loadCards(
   chosenEntityType: (typeof entities)[number],
@@ -17,7 +16,7 @@ export async function loadCards(
       newData = await getChannels();
       break;
     case 'groups':
-      newData = [...(await getBachelorGroups()), ...(await getMasterGroups())];
+      newData = await getGroups();
       break;
     case 'bots':
       newData = await getBots();
