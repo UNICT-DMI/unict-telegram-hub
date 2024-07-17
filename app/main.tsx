@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, TextField, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Link, TextField, Tooltip, Typography, useTheme } from '@mui/material';
+import Image from 'next/image';
 import { createContext, useEffect, useState } from 'react';
 import CategorySelector from './categorySelector';
 import { entities } from './models';
@@ -70,6 +71,17 @@ export default function Main({
                 setSearchValue(input.target.value);
               }}
             />
+            <Link
+              href="https://github.com/UNICT-DMI/unict-telegram-hub"
+              target="_blank"
+              rel="noreferrer">
+              <Image
+                src={`/github-mark${theme.palette.mode === 'dark' ? '-white' : ''}.svg`}
+                alt="The github logo"
+                width={2 * theme.typography.fontSize}
+                height={2 * theme.typography.fontSize}
+              />
+            </Link>
           </Box>
         </Box>
         <main>{children}</main>
