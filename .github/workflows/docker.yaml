@@ -1,8 +1,9 @@
-name: Create and publish a Docker image
+name: Build Docker image
+
 on:
   push:
     branches:
-      - 'main'
+      - main
 
 jobs:
   build:

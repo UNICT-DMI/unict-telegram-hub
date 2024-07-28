@@ -1,2 +1,6 @@
-node_modules
+Dockerfile
+.dockerignore
+.git
+.yarn
+.vscode
 .next
