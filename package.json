@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "set process.env.NODE_ENV=production && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -29,5 +29,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "typescript": "^5"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "^20"
   }
 }
