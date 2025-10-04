@@ -1,4 +1,4 @@
-FROM node:20-alpine AS base
+FROM node:24-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -7,8 +7,8 @@ WORKDIR /unict-telegram-hub
 RUN apk add --no-cache libc6-compat
 
 # Install dependencies
-COPY package.json yarn.lock ./
-RUN yarn --immutable
+COPY package.json pnpm*.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -21,7 +21,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN yarn build
+RUN pnpm build
 
 # Production image, copy all the files and run next
 FROM base AS runner

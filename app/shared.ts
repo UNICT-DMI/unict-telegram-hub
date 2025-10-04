@@ -1,7 +1,7 @@
 import { load } from 'cheerio';
 import { accessSync, constants, mkdirSync, readFileSync, statSync, writeFile } from 'fs';
 import { get } from 'https';
-import { Base, Group, GroupsDictionaryValue } from './models';
+import { Base, Group, GroupEntry } from './models';
 
 const cachedDataFolderPath = './cachedData';
 
@@ -46,12 +46,8 @@ function shouldUpdateCache(cachedDataPath: string) {
 
 function sendHTTPRequest<T>(
   link: string,
-  encoding: BufferEncoding = 'utf-8',
-  callback: (
-    data: string,
-    resolve: (value: T | PromiseLike<T>) => void,
-    reject: (reason?: unknown) => void
-  ) => void
+  callback: (data: string, resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: unknown) => void) => void,
+  encoding: BufferEncoding = 'utf-8'
 ): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     get(link, res => {
@@ -73,14 +69,14 @@ function sendHTTPRequest<T>(
 }
 
 function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithScore> {
-  return sendHTTPRequest<BaseWithScore>(link, undefined, (data, resolve, reject) => {
+  return sendHTTPRequest<BaseWithScore>(link, (data, resolve, reject) => {
     const $ = load(data);
 
     const dataNode = $('.tgme_page');
     const commonClassPrefix = 'tgme_page_';
 
     const entity: BaseWithScore = {
-      link: link,
+      link,
       title: dataNode.find(`.${commonClassPrefix}title`).children().first().text(),
       description: dataNode.find(`.${commonClassPrefix}description`).text()
     };
@@ -91,10 +87,14 @@ function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithSc
 
     const pictureURL = dataNode.find(`img.${commonClassPrefix}photo_image`).prop('src');
     if (pictureURL?.startsWith('https:')) {
-      sendHTTPRequest(pictureURL, 'base64', picture => {
-        entity.pictureURL = `data:image/png;base64,${picture}`;
-        resolve(entity);
-      }).catch(error => {
+      sendHTTPRequest(
+        pictureURL,
+        picture => {
+          entity.pictureURL = `data:image/png;base64,${picture}`;
+          resolve(entity);
+        },
+        'base64'
+      ).catch(error => {
         log('error', error);
         reject(error);
       });
@@ -105,18 +105,12 @@ function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithSc
   });
 }
 
-async function fetchEntitiesData(
-  entitiesType: EntitiesType,
-  entities: ReadonlyArray<string>
-): Promise<Array<BaseWithScore>> {
+async function fetchEntitiesData(entitiesType: EntitiesType, entities: ReadonlyArray<string>): Promise<Array<BaseWithScore>> {
   log('warn', `Fetching latest data for: ${entitiesType}`);
 
   return await Promise.all(
     entities.map(suffix =>
-      fetchData(
-        entitiesType,
-        `https://t.me/${isGroupEntitiesType(entitiesType) ? 'joinchat/' : ''}${suffix}`
-      )
+      fetchData(entitiesType, `https://t.me/${isGroupEntitiesType(entitiesType) ? 'joinchat/' : ''}${suffix}`)
     )
   );
 }
@@ -145,7 +139,7 @@ export function cacheData<T>(path: string, data: ReadonlyArray<T>) {
 
 export async function getData(
   entitiesType: EntitiesType,
-  entities: ReadonlyArray<string | GroupsDictionaryValue>,
+  entities: ReadonlyArray<string | GroupEntry>,
   groupsYear?: string
 ): Promise<Array<BaseWithScore>> {
   const isGroupEntitiesTypeResult = isGroupEntitiesType(entitiesType);
@@ -158,25 +152,24 @@ export async function getData(
     let entitiesArray: ReadonlyArray<string>;
 
     if (isGroupEntitiesTypeResult) {
-      entitiesArray = (entities as ReadonlyArray<GroupsDictionaryValue>).map(
-        entity => entity.suffix
-      );
+      entitiesArray = (entities as ReadonlyArray<GroupEntry>).map(entity => entity.suffix);
     } else {
       entitiesArray = entities as ReadonlyArray<string>;
     }
 
-    const entitiesData: Array<BaseWithScore> = await fetchEntitiesData(
-      entitiesType,
-      entitiesArray
-    ).catch(() => {
+    const entitiesData: Array<BaseWithScore> = await fetchEntitiesData(entitiesType, entitiesArray).catch(() => {
       log('error', 'Failed fetching the entities data');
       return [];
     });
 
     if (isGroupEntitiesTypeResult) {
-      const groupsDictionaryValues = entities as ReadonlyArray<GroupsDictionaryValue>;
+      const groupsDictionaryValues = entities as ReadonlyArray<GroupEntry>;
 
       (entitiesData as Array<GroupWithScore>).forEach((entity, index) => {
+        if (entity.title.length === 0) {
+          entity.title = groupsDictionaryValues[index].title;
+          entity.link = '';
+        };
         entity.code = groupsDictionaryValues[index].teamsCodes[0];
         entity.mz_code = groupsDictionaryValues[index].teamsCodes[1];
       });

@@ -25,19 +25,11 @@ export type EntityWithPosition = Entity & {
   position: number;
 };
 
-export interface GroupsDictionaryValue {
+export interface GroupEntry {
+  title: string;
   suffix: string;
   teamsCodes: ReadonlyArray<string>;
 }
 
-export enum GroupsYear {
-  AllYears,
-  First,
-  Second,
-  Third
-}
-
-export type GroupsDictionary = Record<
-  GroupsYear.AllYears | GroupsYear.First | GroupsYear.Second | GroupsYear.Third,
-  Record<string, GroupsDictionaryValue>
->;
+// Each sub-array corresponds to which year of the study course the groups belong to
+export type Groups = ReadonlyArray<ReadonlyArray<GroupEntry>>;

@@ -42,9 +42,15 @@ export default function GenericCard({
           }}
         />
         <CardContent>
-          <Link href={entity.link} target="_blank" rel="noreferrer" variant="h1" fontSize="1.5em">
-            {entity.title}
-          </Link>
+          {entity.link.length > 0 ? (
+            <Link href={entity.link} target="_blank" rel="noreferrer" variant="h1" fontSize="1.5em">
+              {entity.title}
+            </Link>
+          ) : (
+            <Typography variant="h1" fontSize="1.5em" color={theme.palette.primary.main}>
+              {entity.title}
+            </Typography>
+          )}
           {entity.description && <Typography variant="body2">{entity.description}</Typography>}
           {fans && (
             <Typography variant="body2" color={theme.palette.secondary.main}>
@@ -76,11 +82,7 @@ export default function GenericCard({
           }}>
           {entity.position <= 3 ? (
             <Box width={leaderboardTop3PositionSize} height={leaderboardTop3PositionSize}>
-              <Image
-                src={`/medal_${entity.position}.svg`}
-                layout="fill"
-                alt="Medal corresponding to position"
-              />
+              <Image src={`/medal_${entity.position}.svg`} layout="fill" alt="Medal corresponding to position" />
             </Box>
           ) : (
             <Box
