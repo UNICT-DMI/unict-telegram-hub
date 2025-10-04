@@ -7,8 +7,10 @@ WORKDIR /unict-telegram-hub
 RUN apk add --no-cache libc6-compat
 
 # Install dependencies
+RUN corepack enable
 COPY package.json pnpm*.yaml ./
 RUN pnpm install --frozen-lockfile
+RUN pnpm approve-builds
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -21,6 +23,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
+RUN corepack enable
 RUN pnpm build
 
 # Production image, copy all the files and run next
