@@ -1,49 +1,46 @@
-import { Channel } from "./models";
-import { BaseWithScore, getData } from "./shared";
+import { Channel } from './models';
+import { BaseWithScore, getData } from './shared';
 
 const channelsNames: ReadonlyArray<string> = [
-  "dminews",
-  "unict_qd",
-  "fisicact",
-  "dieeinews",
-  "deinews",
-  "infoDSC",
-  "lexunictnews",
-  "biogeonews",
-  "biometecnews",
-  "dspsnews",
-  "disumnews",
-  "medicina_unict",
-  "disfornews",
-  "medclinnews",
-  "dgfinews",
-  "dsfnews",
-  "sdslinguenews",
-  "dicarnews",
-  "ersunews",
-  "bio_unict",
-  "geo_unict",
-  "scienze_ambientali",
-  "terapia_unict",
-  "Servizio_Sociale_Sociologia_news",
-  "lettere_unict",
-  "filosofia_unict",
-  "IngInfoNews",
-  "IngEleNews",
-  "IngIndNews",
-  "Spotted_DMI",
+  'dminews',
+  'fisicact',
+  'dieeinews',
+  'deinews',
+  'infoDSC',
+  'lexunictnews',
+  'biogeonews',
+  'biometecnews',
+  'dspsnews',
+  'disumnews',
+  'medicina_unict',
+  'disfornews',
+  'medclinnews',
+  'dgfinews',
+  'dsfnews',
+  'sdslinguenews',
+  'dicarnews',
+  'ersunews',
+  'bio_unict',
+  'geo_unict',
+  'scienze_ambientali',
+  'terapia_unict',
+  'Servizio_Sociale_Sociologia_news',
+  'lettere_unict',
+  'filosofia_unict',
+  'IngInfoNews',
+  'IngEleNews',
+  'IngIndNews',
+  'Spotted_DMI',
   // 'SfottedDIEEI',
-  "sdsarchitetturanews",
-  "albo_unict",
-  "unict_devs",
-  "OpenJobDMI",
-  "Ask_DMI",
+  'sdsarchitetturanews',
+  'albo_unict',
+  'unict_devs',
+  'OpenJobDMI',
+  'Ask_DMI'
 ] as const;
 
-function toChannelEntities(
-  entitiesData: Array<BaseWithScore>
-): ReadonlyArray<Channel> {
-  return entitiesData.map<Channel>((entity) => {
+function toChannelEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Channel> {
+  return entitiesData.map<Channel>(entity => {
     const score = entity.score ?? 0;
     delete entity.score;
 
@@ -55,5 +52,5 @@ function toChannelEntities(
 }
 
 export default async function getChannels() {
-  return toChannelEntities(await getData("channels", channelsNames));
+  return toChannelEntities(await getData('channels', channelsNames));
 }
