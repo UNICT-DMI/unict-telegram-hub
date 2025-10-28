@@ -3,6 +3,7 @@ import { BaseWithScore, getData } from './shared';
 
 const channelsNames: ReadonlyArray<string> = [
   'dminews',
+  'unict_qd',
   'fisicact',
   'dieeinews',
   'deinews',
