@@ -9,30 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/material": "^5.18.0",
-    "@mui/material-nextjs": "^5.18.0",
-    "cheerio": "^1.1.2",
-    "next": "^15.5.4",
-    "next-pwa": "^5.6.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "sharp": "^0.33.5"
+    "@emotion/cache": "11.14.0",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
+    "@mui/material": "7.3.8",
+    "@mui/material-nextjs": "7.3.8",
+    "cheerio": "1.2.0",
+    "next": "16.1.6",
+    "next-pwa": "5.6.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "sharp": "0.34.5"
   },
   "devDependencies": {
-    "@types/next-pwa": "^5.6.9",
-    "@types/node": "^20.19.19",
-    "@types/react": "^18.3.25",
-    "@types/react-dom": "^18.3.7",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.2",
-    "typescript": "^5.9.3"
+    "@types/next-pwa": "5.6.9",
+    "@types/node": "25.2.3",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "10.0.0",
+    "eslint-config-next": "16.1.6",
+    "typescript": "5.9.3"
   },
   "engineStrict": true,
   "engines": {
-    "node": "^20"
+    "node": "20"
   },
   "packageManager": "pnpm@10.18.0+sha512.e804f889f1cecc40d572db084eec3e4881739f8dec69c0ff10d2d1beff9a4e309383ba27b5b750059d7f4c149535b6cd0d2cb1ed3aeb739239a4284a68f40cfa"
 }

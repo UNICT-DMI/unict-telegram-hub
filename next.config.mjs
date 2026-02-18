@@ -7,7 +7,8 @@ const withPwa = nextPwa({
 });
 
 const nextConfig = withPwa({
-  output: 'standalone'
+  output: 'standalone',
+  turbopack: {}
 });
 
 export default nextConfig;
