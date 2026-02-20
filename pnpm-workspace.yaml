@@ -1,3 +1,7 @@
+onlyBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
 overrides:
   next@>=0.9.9 <14.2.24: '>=14.2.24'
   next@>=0.9.9 <14.2.31: '>=14.2.31'
