@@ -36,7 +36,8 @@ const channelsNames: ReadonlyArray<string> = [
   'albo_unict',
   'unict_devs',
   'OpenJobDMI',
-  'Ask_DMI'
+  'Ask_DMI',
+  'careerservicenews'
 ] as const;
 
 function toChannelEntities(entitiesData: Array<BaseWithScore>): ReadonlyArray<Channel> {
