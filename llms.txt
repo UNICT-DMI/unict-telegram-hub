@@ -1,0 +1,51 @@
+# UNICT Telegram Hub
+
+> Platform that aggregates and lists the Telegram channels, groups, and bots associated with the University of Catania (UNICT), organized by category and ranked by engagement (subscribers/members). Data is scraped from public Telegram pages, cached, and served as a PWA. Live: https://telegram.unictdev.org
+
+## Tech stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript 5
+- UI: Material UI (MUI) 7 with Emotion
+- Scraping: cheerio (parses public t.me pages)
+- Images: sharp
+- PWA: next-pwa
+- Package manager: pnpm; production output: `standalone`
+
+## Architecture
+
+The curated lists of Telegram usernames are hardcoded in source (`app/channels.ts`, `app/bots.ts`, `app/bachelor.ts`, `app/master.ts`, with groups composed in `app/groups.ts`). The client calls the server action `loadCards()` in `app/actions.ts`, which dispatches to the right loader by category.
+
+`app/shared.ts` holds the engine: `getData()` reads from a per-category cache under `cachedData/` (24h TTL based on file mtime); on miss/expiry it fetches each `t.me/{username}` page over HTTPS, parses it with cheerio (`.tgme_page_title`, `.tgme_page_description`, `.tgme_page_extra` for counts, `.tgme_page_photo_image` for the avatar), downloads the avatar and inlines it as a base64 data URL, then writes JSON back to the cache. There is no official Telegram API and no database.
+
+Client state (selected category, search query) flows through React Context provided in `app/main.tsx`; `app/page.tsx` renders the responsive card grid with skeleton loading and, when no search is active, leaderboard position badges (medals for the top 3).
+
+## Key paths
+
+- `app/page.tsx` - dashboard grid, filtering/search, skeletons
+- `app/layout.tsx`, `app/clientLayout.tsx`, `app/main.tsx` - layout, theme provider, Category/Search contexts
+- `app/actions.ts` - `loadCards()` server action (category dispatch)
+- `app/shared.ts` - scraping + caching engine (`getData()`)
+- `app/channels.ts` / `app/groups.ts` / `app/bots.ts` / `app/bachelor.ts` / `app/master.ts` - source username lists
+- `app/card.tsx` - `GenericCard` (title link, description, counts, leaderboard badge)
+- `app/categorySelector.tsx` - Channels/Groups/Bots selector
+- `app/models.ts` - `Entity`, `Channel`, `Group`, `Bot`, `GroupEntry` types
+- `app/hooks.ts` - `useDebounce`
+- `app/theme.ts` - MUI theme; `app/manifest.ts` - PWA manifest
+- `cachedData/{channels,groups,bots,bachelor,master}` - runtime scrape cache (24h TTL)
+- `next.config.mjs` - next-pwa + `output: 'standalone'`; `Dockerfile` - multi-stage (Node 24 Alpine, non-root `nextjs` user)
+
+## Commands
+
+```bash
+pnpm install
+pnpm dev            # dev server on :3000
+pnpm build          # standalone production build
+pnpm start          # run production server
+pnpm lint           # next lint
+```
+
+## Conventions
+
+- TypeScript strict; absolute imports via `@/*` alias.
+- To add a Telegram entity, append its username to the relevant list file (`channels.ts`, `bots.ts`, `bachelor.ts`, `master.ts`); it will be scraped and cached on next request, no other change needed.
+- Avatars and metadata are not committed; they live only in `cachedData/` and are regenerated on cache expiry.
