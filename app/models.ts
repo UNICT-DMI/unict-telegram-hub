@@ -29,6 +29,8 @@ export interface GroupEntry {
   title: string;
   suffix: string;
   teamsCodes: ReadonlyArray<string>;
+  // Public groups are reached via their username (t.me/<suffix>) instead of an invite link (t.me/joinchat/<suffix>)
+  isPublic?: boolean;
 }
 
 // Each sub-array corresponds to which year of the study course the groups belong to

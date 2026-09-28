@@ -4,6 +4,7 @@ import { getData } from './shared';
 
 export const groupsNames: Groups = [
   [
+    { title: 'Informatica Magistrale UniCT', suffix: 'LM18_unict', teamsCodes: [], isPublic: true },
     { title: 'Multimedia LM - 18', suffix: 'AAAAAEumJdcVYjQrSQkZhA', teamsCodes: ['28vtwgp'] },
     { title: 'Quality Development Chat', suffix: 'W3UhKxQBI5llMTBk', teamsCodes: [] },
     { title: 'Algoritmi e Complessità', suffix: 'UFeehRZWhBcFlG7X', teamsCodes: ['d73lytc'] },

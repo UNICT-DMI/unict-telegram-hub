@@ -105,14 +105,10 @@ function fetchData(entitiesType: EntitiesType, link: string): Promise<BaseWithSc
   });
 }
 
-async function fetchEntitiesData(entitiesType: EntitiesType, entities: ReadonlyArray<string>): Promise<Array<BaseWithScore>> {
+async function fetchEntitiesData(entitiesType: EntitiesType, paths: ReadonlyArray<string>): Promise<Array<BaseWithScore>> {
   log('warn', `Fetching latest data for: ${entitiesType}`);
 
-  return await Promise.all(
-    entities.map(suffix =>
-      fetchData(entitiesType, `https://t.me/${isGroupEntitiesType(entitiesType) ? 'joinchat/' : ''}${suffix}`)
-    )
-  );
+  return await Promise.all(paths.map(path => fetchData(entitiesType, `https://t.me/${path}`)));
 }
 
 export function sortData<T>(entitiesData: Array<T>, property: keyof T) {
@@ -152,7 +148,9 @@ export async function getData(
     let entitiesArray: ReadonlyArray<string>;
 
     if (isGroupEntitiesTypeResult) {
-      entitiesArray = (entities as ReadonlyArray<GroupEntry>).map(entity => entity.suffix);
+      entitiesArray = (entities as ReadonlyArray<GroupEntry>).map(entity =>
+        entity.isPublic ? entity.suffix : `joinchat/${entity.suffix}`
+      );
     } else {
       entitiesArray = entities as ReadonlyArray<string>;
     }

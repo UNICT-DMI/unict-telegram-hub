@@ -47,5 +47,5 @@ pnpm lint           # next lint
 ## Conventions
 
 - TypeScript strict; absolute imports via `@/*` alias.
-- To add a Telegram entity, append its username to the relevant list file (`channels.ts`, `bots.ts`, `bachelor.ts`, `master.ts`); it will be scraped and cached on next request, no other change needed.
+- To add a Telegram entity, append its username to the relevant list file (`channels.ts`, `bots.ts`, `bachelor.ts`, `master.ts`); it will be scraped and cached on next request, no other change needed. Group `suffix` is an invite hash (`t.me/joinchat/<suffix>`); for a public group set it to the username and add `isPublic: true`.
 - Avatars and metadata are not committed; they live only in `cachedData/` and are regenerated on cache expiry.
