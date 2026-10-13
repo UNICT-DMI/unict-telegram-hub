@@ -10,6 +10,12 @@ export const groupsNames: Groups = [
       teamsCodes: ['2v8sv7c', 'qtrs803']
     },
     {
+      title: 'PROGRAMMAZIONE I [A-E] 26/27',
+      suffix: 'prog1AE_26_27',
+      teamsCodes: [],
+      isPublic: true
+    },
+    {
       title: 'ELEMENTI DI ANALISI MATEMATICA 1',
       suffix: 'CBrlIVQ8_DPFaQGHETxGjw',
       teamsCodes: ['d6xcbpr', 'lp5w1fv']
@@ -33,6 +39,11 @@ export const groupsNames: Groups = [
       title: 'ARCHITETTURA DEGLI ELABORATORI E LABORATORIO',
       suffix: 'CBrlIVVU5S_SCyQBL-fSOw',
       teamsCodes: ['75p16zi', 'ng7jsih']
+    },
+    {
+      title: 'ARCHITETTURA DEGLI ELABORATORI [O-Z]',
+      suffix: 'ytVIlSMQroAwOWZk',
+      teamsCodes: []
     },
     {
       title: 'STRUTTURE DISCRETE',
@@ -69,7 +80,7 @@ export const groupsNames: Groups = [
     {
       title: 'ALGORITMI E LABORATORIO',
       suffix: 'CBrlIUVDCCJ38sE87xIcgg',
-      teamsCodes: ['jm6xvd6', '5llo7w4']
+      teamsCodes: ['y6voi3n', '5llo7w4']
     },
     {
       title: 'BASI DI DATI',
